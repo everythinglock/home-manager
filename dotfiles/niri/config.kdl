@@ -1,0 +1,10 @@
+include "keybind.kdl"
+include "input.kdl"
+include "windowRule.kdl"
+include "layerRule.kdl"
+include "environment.kdl"
+include "startup.kdl"
+
+
+include "./noctalia.kdl"
+

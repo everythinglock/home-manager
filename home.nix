@@ -1,10 +1,12 @@
 { config, pkgs, ... }:
-
-{
+let
+  username = "fd";
+  dotDir = "dotfiles";
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "fd";
-  home.homeDirectory = "/home/fd";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -20,7 +22,10 @@
   home.packages = [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
-    pkgs.hello
+    # pkgs.hello
+    pkgs.cowsay
+    pkgs.lolcat
+    pkgs.neovim
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -51,6 +56,19 @@
     # '';
   };
 
+  xdg.configFile = {
+    "fish".source = ./${dotDir}/fish;
+    "nvim".source = ./${dotDir}/nvim;
+    # 2. niri 部分：拆开手工链接，不管 noctalia.kdl
+    "niri/config.kdl".source = ./${dotDir}/niri/config.kdl;
+    "niri/environment.kdl".source = ./${dotDir}/niri/environment.kdl;
+    "niri/keybind.kdl".source = ./${dotDir}/niri/keybind.kdl;
+    "niri/input.kdl".source = ./${dotDir}/niri/input.kdl;
+    "niri/layerRule.kdl".source = ./${dotDir}/niri/layerRule.kdl;
+    "niri/windowRule.kdl".source = ./${dotDir}/niri/windowRule.kdl;
+    "niri/startup.kdl".source = ./${dotDir}/niri/startup.kdl;
+  };
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -78,8 +96,9 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # fish
-  programs.fish = {
-    enable = true;
-  };
+  # # fish
+  # programs.fish = {
+  #   enable = true;
+  # };
+
 }
