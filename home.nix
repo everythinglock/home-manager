@@ -2,7 +2,9 @@
 let
   username = "fd";
   dotDir = "dotfiles";
+  homeDir = "homefiles";
 in {
+  nixpkgs.config.allowUnfree = true;
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = username;
@@ -19,14 +21,42 @@ in {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-    pkgs.cowsay
-    pkgs.lolcat
-    pkgs.neovim
+  home.packages = with pkgs; [
+    # 终端美化
+    fastfetch # 显示信息
 
+    # 终端工具
+    bat #cat 强化
+    eza # ls 强化
+    htop # 显示cpu内存信息
+    ripgrep # grep强化
+    fd # find强化
+    fzf # 文件搜索
+    zoxide # 地址跳转
+    starship # shell信息增强
+    foot # 终端
+    yazi # 终端文件管理
+    zellij # tmux
+
+    # 桌面
+    nwg-look # gtk主题配置
+
+    # 语言工具
+    cargo
+    gcc
+    nodejs
+    python313
+    python313Packages.pip
+    pipx
+    tree-sitter
+
+    # 开发工具
+    neovim
+    git
+    lazygit
+
+    # 系统工具
+    grim slurp satty # 截图三件套
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
     # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
@@ -44,12 +74,9 @@ in {
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
+    ".bashrc".source = ./${homeDir}/.bashrc;
     # ".screenrc".source = dotfiles/screenrc;
 
-    # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
@@ -69,22 +96,6 @@ in {
     "niri/startup.kdl".source = ./${dotDir}/niri/startup.kdl;
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/fd/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
     EDITOR = "nvim";
   };
@@ -96,9 +107,10 @@ in {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # # fish
-  # programs.fish = {
-  #   enable = true;
-  # };
+  # direnv
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 
 }
