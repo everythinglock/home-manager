@@ -20,6 +20,11 @@
         fd = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home.nix ];
+          extraSpecialArgs = {
+            username = "fd";
+            dotDir = "dotfiles";
+            homeDir = "homefiles";
+          };
         };
       };
     };
