@@ -15,8 +15,9 @@
     yazi # 终端文件管理
     zellij # tmux
 
-    # 桌面
+    # 桌面软件
     nwg-look # gtk主题配置
+    chatbox # ai聊天
 
     # 语言工具
     tree-sitter
