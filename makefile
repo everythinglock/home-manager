@@ -4,7 +4,7 @@ OFFICIAL_CACHE = https://nixos.org
 
 .PHONY: update
 update:
-	home-manager switch --flake .#fd --option substituters "https://mirrors.nju.edu.cn/nix-channels/store https://cache.nixos.org"
+	home-manager switch --flake .#fd
 
 .PHONY: clean
 clean:

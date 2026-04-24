@@ -1,6 +1,4 @@
-{ config, pkgs, username, ... }: {
-  nixpkgs.config.allowUnfree = true;
-
+{ pkgs, username, ... }: {
   home.username = username;
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "25.11"; # Please read the comment before changing.

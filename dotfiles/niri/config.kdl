@@ -4,6 +4,7 @@ include "windowRule.kdl"
 include "layerRule.kdl"
 include "environment.kdl"
 include "startup.kdl"
+// include "monitor.kdl"
 
 
 include "./noctalia.kdl"

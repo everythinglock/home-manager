@@ -3,4 +3,6 @@ hotkey-overlay {
     skip-at-startup
 }
 
-spawn-at-startup "qs" "-c" "noctalia-shell"
+// spawn-at-startup "qs" "-c" "noctalia-shell"
+spawn-at-startup "noctalia-shell"
+spawn-at-startup "xwayland-satellite" ":12"

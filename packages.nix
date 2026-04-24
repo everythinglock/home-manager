@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, pkgsUnstable, ... }: {
   home.packages = with pkgs; [
     # 终端美化
     fastfetch # 显示信息
@@ -13,11 +13,15 @@
     zoxide # 地址跳转
     foot # 终端
     yazi # 终端文件管理
-    zellij # tmux
+    pkgsUnstable.zellij # tmux
 
+    # desktop
+    xwayland-satellite
     # 桌面软件
     nwg-look # gtk主题配置
     chatbox # ai聊天
+    qq
+    pkgsUnstable.noctalia-shell # bar
 
     # 语言工具
     tree-sitter
