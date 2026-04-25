@@ -7,6 +7,8 @@
     ./packages.nix
     ./dotfiles.nix
     ./programs.nix
+    ./style.nix
+    ./session.nix
   ];
 
   home.sessionVariables = {
