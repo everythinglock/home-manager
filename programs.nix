@@ -6,6 +6,8 @@
     ./programs/shell.nix
 
     ./programs/direnv.nix
+
+    ./programs/terminal.nix
   ];
 
 }
