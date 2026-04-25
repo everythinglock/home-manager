@@ -21,7 +21,6 @@
     nwg-look # gtk主题配置
     pkgsUnstable.chatbox # ai聊天
     qq
-    pkgsUnstable.noctalia-shell # bar
 
     # 语言工具
     tree-sitter

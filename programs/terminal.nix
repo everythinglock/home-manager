@@ -5,7 +5,7 @@
     enable = true;
     settings = {
       theme = "Catppuccin Mocha";
-      font-size = 12;
+      font-size = 13;
       background-opacity = 0.95;
 
       confirm-close-surface = false;
