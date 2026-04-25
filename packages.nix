@@ -30,7 +30,6 @@
     python313 python313Packages.pip pipx
 
     # 开发工具
-    neovim
     git
     lazygit
 

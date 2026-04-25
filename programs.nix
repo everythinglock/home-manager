@@ -8,6 +8,8 @@
     ./programs/direnv.nix
 
     ./programs/terminal.nix
+
+    ./programs/neovim.nix
   ];
 
 }
