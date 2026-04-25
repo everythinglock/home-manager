@@ -19,7 +19,7 @@
     xwayland-satellite
     # 桌面软件
     nwg-look # gtk主题配置
-    chatbox # ai聊天
+    pkgsUnstable.chatbox # ai聊天
     qq
     pkgsUnstable.noctalia-shell # bar
 
