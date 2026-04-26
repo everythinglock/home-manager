@@ -1,13 +1,15 @@
-{ ... }: {
-# fish
+{ ... }:
+{
+  # fish
   programs.fish = {
     enable = true;
 
     # config fish
     interactiveShellInit = ''
-      set fish_greeting ""              # 关闭欢迎语
-      fish_vi_key_bindings           # 使用 Vi 模式
-      starship init fish | source    # starship
+      set fish_greeting ""  # 关闭欢迎语
+      fish_vi_key_bindings  # 使用 Vi 模式
+      starship init fish | source  # starship
+      direnv hook fish | source  # direnv
     '';
 
     # function
@@ -23,7 +25,7 @@
     };
   };
 
-# bash
+  # bash
   programs.bash = {
     enable = true;
     initExtra = ''
@@ -33,9 +35,9 @@
     '';
   };
 
-# starship
+  # starship
   programs.starship = {
-      enable = true;
+    enable = true;
   };
 
   home.shellAliases = {
