@@ -12,10 +12,10 @@
   };
 
   xdg.configFile = {
-    # "fish".source = ./${dotDir}/fish;
+    # nvim
     "nvim/lua".source = ./${dotDir}/nvim/lua;
     "nvim/init.lua".source = ./${dotDir}/nvim/init.lua;
-    # 2. niri 部分：拆开手工链接，不管 noctalia.kdl
+    # niri：拆开手工链接，不管 noctalia.kdl
     "niri/config.kdl".source = ./${dotDir}/niri/config.kdl;
     "niri/environment.kdl".source = ./${dotDir}/niri/environment.kdl;
     "niri/keybind.kdl".source = ./${dotDir}/niri/keybind.kdl;

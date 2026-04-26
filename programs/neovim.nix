@@ -22,11 +22,12 @@
       nodejs_24
 
       python313
+
       # lsp
       lua-language-server
 
-      ruff
       pyright
+      ruff
 
       nil
       nixfmt
