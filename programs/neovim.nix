@@ -25,12 +25,15 @@
 
       # lsp
       lua-language-server
+      stylua
 
       pyright
       ruff
 
       nil
       nixfmt
+
+      shfmt
     ];
   };
 }

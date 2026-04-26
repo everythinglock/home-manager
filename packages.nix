@@ -1,10 +1,11 @@
-{ pkgs, pkgsUnstable, ... }: {
+{ pkgs, pkgsUnstable, ... }:
+{
   home.packages = with pkgs; [
-    # 终端美化
+    #终端美化
     fastfetch # 显示信息
 
-    # 终端工具
-    bat #cat 强化
+    #终端工具
+    bat # cat 强化
     eza # ls 强化
     htop # 显示cpu内存信息
     ripgrep # grep强化
@@ -15,25 +16,29 @@
     yazi # 终端文件管理
     pkgsUnstable.zellij # tmux
 
-    # desktop
+    #桌面
     xwayland-satellite
-    # 桌面软件
-    nwg-look # gtk主题配置
     pkgsUnstable.chatbox # ai聊天
     qq
 
-    # 语言工具
+    #语言工具
     tree-sitter
     cargo
     gcc
     nodejs
-    python313 python313Packages.pip pipx
+    python313
+    python313Packages.pip
+    pipx
 
-    # 开发工具
+    #git
     git
     lazygit
-
-    # 系统工具
-    grim slurp satty # 截图三件套
+    #截图套件
+    grim
+    slurp
+    satty
+    wl-clipboard
+    #剪切版
+    cliphist
   ];
 }

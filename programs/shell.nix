@@ -1,6 +1,5 @@
 { ... }:
 {
-  # fish
   programs.fish = {
     enable = true;
 
@@ -26,13 +25,10 @@
     };
   };
 
-  # bash
   programs.bash = {
     enable = true;
     initExtra = ''
-      if [[ $- == *i* ]]; then
-        exec fish
-      fi
+      exec fish
     '';
   };
 

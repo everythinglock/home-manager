@@ -12,6 +12,7 @@ return {
         pyright = {},
         gopls = {},
         nil_ls = {},
+        clangd = {},
       },
     },
   },

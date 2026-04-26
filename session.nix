@@ -1,10 +1,11 @@
 { ... }:
 {
-  home.sessionVariables = {
-    EDITOR = "nvim";
+  home = {
+    sessionVariables = {
+      EDITOR = "nvim";
+    };
+    sessionPath = [
+      "$HOME/.nix-profile/bin"
+    ];
   };
-
-  home.sessionPath = [
-    "$HOME/.nix-profile/bin"
-  ];
 }
