@@ -39,7 +39,9 @@
             dotDir = "dotfiles";
             homeDir = "homefiles";
           };
-          modules = [ ./home.nix ];
+          modules = [
+            ./home.nix
+          ];
         };
       };
     };

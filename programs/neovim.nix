@@ -3,7 +3,7 @@
   programs.neovim = {
     enable = true;
     viAlias = true;
-    vimAlias = true;
+    vimAlias = false;
     withPython3 = true;
     withNodeJs = true;
     extraPackages = with pkgs; [
@@ -32,8 +32,12 @@
 
       nil
       nixfmt
+      statix
 
       shfmt
+
+      cmake-lint
+      neocmakelsp
     ];
   };
 }
