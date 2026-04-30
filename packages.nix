@@ -35,8 +35,8 @@
     grim
     slurp
     satty
-    wl-clipboard
     #剪切版
+    wl-clipboard
     cliphist
   ];
 }

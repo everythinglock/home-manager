@@ -13,6 +13,7 @@
       gnumake
       unzip
       curl
+      luajit
 
       # lazyvim tool
       ripgrep

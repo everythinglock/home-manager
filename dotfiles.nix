@@ -4,6 +4,7 @@
   # plain files is through 'home.file'.
   home.file = {
     "Pictures/Wallpapers".source = ./${homeDir}/Wallpapers;
+    "Applications/scripts".source = ./${homeDir}/scripts;
 
     # ".gradle/gradle.properties".text = ''
     #   org.gradle.console=verbose

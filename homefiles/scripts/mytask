@@ -1,0 +1,367 @@
+#!/usr/bin/env python3
+"""
+任务切换助手 - 命令行工具
+功能：
+- task: <描述>       : 开始新任务（旧任务自动暂停）
+- task down          : 完成当前任务，显示完成的任务和上一个任务
+- task list          : 列出所有任务（进行中/暂停/已完成）
+- task status        : 显示当前进行中的任务和最近暂停的任务
+- task resume [id]   : 恢复某个暂停的任务（不加id则恢复最近暂停的）
+- task paused        : 列出所有暂停的任务
+- help / exit        : 帮助/退出
+
+所有数据自动保存到 tasks.json 文件中。
+"""
+
+import json
+import os
+import sys
+from datetime import datetime
+from typing import List, Dict, Optional
+
+# 数据文件路径：用户根目录下的 .task.json（隐藏文件）
+DATA_FILE = os.path.expanduser("~/.mytask.json")
+
+# 任务状态常量
+STATUS_ACTIVE = "active"   # 进行中
+STATUS_PAUSED = "paused"   # 暂停
+STATUS_DONE = "done"       # 已完成
+
+
+class Task:
+    def __init__(self, task_id: int, description: str, status: str,
+                 created_at: str, updated_at: str, completed_at: str | None = None):
+        self.id = task_id
+        self.description = description
+        self.status = status
+        self.created_at = created_at      # ISO 格式时间字符串
+        self.updated_at = updated_at      # 最后更新时间（用于排序）
+        self.completed_at = completed_at  # 完成时间
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "description": self.description,
+            "status": self.status,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "completed_at": self.completed_at,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            task_id=data["id"],
+            description=data["description"],
+            status=data["status"],
+            created_at=data["created_at"],
+            updated_at=data["updated_at"],
+            completed_at=data.get("completed_at"),
+        )
+
+
+class TaskManager:
+    def __init__(self):
+        self.tasks: Dict[int, Task] = {}
+        self.current_task_id: Optional[int] = None
+        self.next_id: int = 1
+        self.load_data()
+
+    def _now_iso(self) -> str:
+        """返回当前时间的 ISO 格式字符串"""
+        return datetime.now().isoformat()
+
+    def load_data(self):
+        """从 JSON 文件加载数据"""
+        if not os.path.exists(DATA_FILE):
+            return
+        try:
+            with open(DATA_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            self.next_id = data.get("next_id", 1)
+            self.current_task_id = data.get("current_task_id", None)
+            for task_dict in data.get("tasks", []):
+                task = Task.from_dict(task_dict)
+                self.tasks[task.id] = task
+        except Exception as e:
+            print(f"加载数据失败: {e}")
+
+    def save_data(self):
+        """保存数据到 JSON 文件"""
+        data = {
+            "next_id": self.next_id,
+            "current_task_id": self.current_task_id,
+            "tasks": [task.to_dict() for task in self.tasks.values()],
+        }
+        try:
+            with open(DATA_FILE, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except Exception as e:
+            print(f"保存数据失败: {e}")
+
+    def _get_task(self, task_id: int) -> Optional[Task]:
+        return self.tasks.get(task_id)
+
+    def _set_task_status(self, task_id: int, new_status: str, update_time: bool = True):
+        """修改任务状态并更新时间（可选）"""
+        task = self._get_task(task_id)
+        if not task:
+            return
+        task.status = new_status
+        if update_time:
+            task.updated_at = self._now_iso()
+        if new_status == STATUS_DONE and not task.completed_at:
+            task.completed_at = self._now_iso()
+        self.save_data()
+
+    def _get_recent_paused_task(self) -> Optional[Task]:
+        """获取最近暂停的任务（按 updated_at 降序）"""
+        paused_tasks = [t for t in self.tasks.values() if t.status == STATUS_PAUSED]
+        if not paused_tasks:
+            return None
+        paused_tasks.sort(key=lambda t: t.updated_at, reverse=True)
+        return paused_tasks[0]
+
+    def new_task(self, description: str):
+        """开始一个新任务：若存在进行中的任务则先暂停，再创建新任务（ACTIVE）"""
+        description = description.strip()
+        if not description:
+            print("错误：任务描述不能为空。")
+            return
+
+        # 如果当前有进行中的任务，先将其暂停
+        if self.current_task_id is not None:
+            cur_task = self._get_task(self.current_task_id)
+            if cur_task and cur_task.status == STATUS_ACTIVE:
+                self._set_task_status(self.current_task_id, STATUS_PAUSED)
+                print(f'已暂停任务: "{cur_task.description}"')
+
+        # 创建新任务
+        task_id = self.next_id
+        self.next_id += 1
+        now = self._now_iso()
+        new_task = Task(
+            task_id=task_id,
+            description=description,
+            status=STATUS_ACTIVE,
+            created_at=now,
+            updated_at=now,
+        )
+        self.tasks[task_id] = new_task
+        self.current_task_id = task_id
+        self.save_data()
+        print(f'✅ 新任务已开始: "{description}"')
+
+    def complete_current_task(self):
+        """完成当前进行中的任务，显示完成的任务及上一个暂停的任务"""
+        if self.current_task_id is None:
+            print("当前没有进行中的任务，无法完成。")
+            return
+
+        cur_task = self._get_task(self.current_task_id)
+        if not cur_task or cur_task.status != STATUS_ACTIVE:
+            print("当前没有进行中的任务，无法完成。")
+            return
+
+        # 完成任务
+        self._set_task_status(self.current_task_id, STATUS_DONE)
+        print(f'✔️ 已完成任务: "{cur_task.description}"')
+
+        # 显示上一个任务（最新的暂停任务）
+        prev_task = self._get_recent_paused_task()
+        if prev_task:
+            print(f'⏪ 上一个任务是: "{prev_task.description}"')
+        else:
+            print("⚠️ 没有上一个暂停的任务。")
+
+        # 清空当前任务指针
+        self.current_task_id = None
+        self.save_data()
+
+    def show_status(self):
+        """显示当前进行中的任务和最近暂停的任务"""
+        # 当前进行中的任务
+        if self.current_task_id:
+            cur_task = self._get_task(self.current_task_id)
+            if cur_task and cur_task.status == STATUS_ACTIVE:
+                print(f'📌 当前任务: "{cur_task.description}"')
+            else:
+                print("📌 当前没有进行中的任务。")
+        else:
+            print("📌 当前没有进行中的任务。")
+
+        # 最近暂停的任务
+        paused = self._get_recent_paused_task()
+        if paused:
+            print(f'⏸️ 最近暂停的任务: "{paused.description}"')
+        else:
+            print("⏸️ 没有暂停的任务。")
+
+    def list_tasks(self, filter_status: str | None = None):
+        """列出所有任务，可按状态过滤"""
+        tasks_list = list(self.tasks.values())
+        if filter_status:
+            tasks_list = [t for t in tasks_list if t.status == filter_status]
+
+        if not tasks_list:
+            print("没有找到任何任务。")
+            return
+
+        # 按创建时间排序（旧的在上）
+        tasks_list.sort(key=lambda t: t.created_at)
+
+        # 分类显示
+        active_tasks = [t for t in tasks_list if t.status == STATUS_ACTIVE]
+        paused_tasks = [t for t in tasks_list if t.status == STATUS_PAUSED]
+        done_tasks = [t for t in tasks_list if t.status == STATUS_DONE]
+
+        if active_tasks:
+            print("\n📌 进行中:")
+            for t in active_tasks:
+                print(f"  [{t.id}] {t.description}")
+        if paused_tasks:
+            print("\n⏸️ 暂停中:")
+            for t in paused_tasks:
+                updated = datetime.fromisoformat(t.updated_at).strftime("%m-%d %H:%M")
+                print(f"  [{t.id}] {t.description} (暂停于 {updated})")
+        if done_tasks:
+            print("\n✅ 已完成:")
+            for t in done_tasks:
+                completed = datetime.fromisoformat(t.completed_at).strftime("%m-%d %H:%M") if t.completed_at else "未知"
+                print(f"  [{t.id}] {t.description} (完成于 {completed})")
+
+    def resume_task(self, task_id: int | None = None):
+        """
+        恢复一个暂停的任务作为当前任务。
+        如果未提供 task_id，则恢复最近暂停的任务。
+        恢复前如果当前有进行中的任务，则先将其暂停。
+        """
+        target_task = None
+        if task_id is None:
+            target_task = self._get_recent_paused_task()
+            if not target_task:
+                print("没有暂停的任务可恢复。")
+                return
+        else:
+            target_task = self._get_task(task_id)
+            if not target_task:
+                print(f"没有找到 ID 为 {task_id} 的任务。")
+                return
+            if target_task.status != STATUS_PAUSED:
+                print(f"任务 \"{target_task.description}\" 不是暂停状态，无法恢复。")
+                return
+
+        # 如果当前有进行中的任务，先暂停它
+        if self.current_task_id is not None:
+            cur_task = self._get_task(self.current_task_id)
+            if cur_task and cur_task.status == STATUS_ACTIVE:
+                self._set_task_status(self.current_task_id, STATUS_PAUSED)
+                print(f'已暂停当前任务: "{cur_task.description}"')
+
+        # 恢复目标任务（改为进行中）
+        self._set_task_status(target_task.id, STATUS_ACTIVE)
+        self.current_task_id = target_task.id
+        self.save_data()
+        print(f'▶️ 已恢复任务: "{target_task.description}"')
+
+    def list_paused(self):
+        """列出所有暂停的任务（用于 resume 时查看ID）"""
+        paused = [t for t in self.tasks.values() if t.status == STATUS_PAUSED]
+        if not paused:
+            print("没有暂停的任务。")
+            return
+        paused.sort(key=lambda t: t.updated_at, reverse=True)
+        print("\n⏸️ 可恢复的暂停任务:")
+        for t in paused:
+            updated = datetime.fromisoformat(t.updated_at).strftime("%m-%d %H:%M")
+            print(f"  [{t.id}] {t.description} (暂停于 {updated})")
+
+
+def print_help():
+    print("""
+可用命令:
+  task: <描述>               - 开始新任务（旧任务自动暂停）
+  task down                  - 完成当前任务，显示完成的任务和上一个任务
+  task status                - 显示当前任务和最近暂停的任务
+  task list                  - 列出所有任务
+  task paused                - 列出所有暂停的任务（用于恢复）
+  task resume [id]           - 恢复暂停的任务（不加id则恢复最近暂停的）
+  help                       - 显示本帮助
+  exit / quit                - 退出程序
+
+说明: 所有数据自动保存在 tasks.json 文件中。
+""")
+
+
+def main():
+    manager = TaskManager()
+    print("任务切换助手 - 输入 help 查看命令")
+
+    while True:
+        try:
+            raw = input("\ntask> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\n再见！")
+            sys.exit(0)
+
+        if not raw:
+            continue
+
+        # 处理退出
+        if raw.lower() in ("exit", "quit"):
+            print("再见！")
+            sys.exit(0)
+
+        if raw.lower() == "help":
+            print_help()
+            continue
+
+        # 命令解析
+        # 1) task: 开头 => 新任务
+        if raw.startswith("task:"):
+            desc = raw[5:].strip()   # 去掉 "task:" 前缀
+            if desc:
+                manager.new_task(desc)
+            else:
+                print("错误：任务描述不能为空。")
+            continue
+
+        # 2) task down 完成当前任务
+        if raw.lower() == "task down":
+            manager.complete_current_task()
+            continue
+
+        # 3) task status
+        if raw.lower() == "task status":
+            manager.show_status()
+            continue
+
+        # 4) task list
+        if raw.lower() == "task list":
+            manager.list_tasks()
+            continue
+
+        # 5) task paused
+        if raw.lower() == "task paused":
+            manager.list_paused()
+            continue
+
+        # 6) task resume [id]
+        if raw.lower().startswith("task resume"):
+            parts = raw.split()
+            if len(parts) == 2 and parts[1].isdigit():
+                manager.resume_task(int(parts[1]))
+            elif len(parts) == 2 and parts[1].lower() == "resume":
+                manager.resume_task()  # 无参数，恢复最近暂停的
+            elif len(parts) == 2:
+                print("用法: task resume <任务ID> 或 task resume (恢复最近暂停的任务)")
+            else:
+                manager.resume_task()  # 只有 "task resume" 也是恢复最近暂停的
+            continue
+
+        # 7) 未知命令
+        print(f"未知命令: {raw}，输入 help 查看帮助。")
+
+
+if __name__ == "__main__":
+    main()
