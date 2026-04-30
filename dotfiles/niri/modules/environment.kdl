@@ -1,7 +1,0 @@
-environment {
-  DISPLAY ":12"
-  GDK_BACKEND "wayland,x11"
-  Qt_QPA_PLATFORM "wayland;xcb"
-  CLUTTER_BACKEND "wayland"
-  QT_QPA_PLATFORMTHEME "qt6ct"
-}

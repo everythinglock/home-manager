@@ -1,4 +1,0 @@
-spawn-at-startup "xwayland-statellite"
-environment {
-  DISPLAY ":0"
-}

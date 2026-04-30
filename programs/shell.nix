@@ -1,42 +1,51 @@
 { ... }:
 {
-  programs.fish = {
-    enable = true;
+  programs = {
+    fish = {
+      enable = true;
 
-    # config fish
-    interactiveShellInit = ''
-      set fish_greeting ""  # 关闭欢迎语
-      fish_vi_key_bindings  # 使用 Vi 模式
-      starship init fish | source  # starship
-      zoxide init fish | source # zoxide
-      direnv hook fish | source  # direnv
-    '';
-
-    # function
-    functions = {
-      y = ''
-        set tmp (mktemp -t "yazi-cwd.XXXXXX")
-        command yazi $argv --cwd-file="$tmp"
-        if read -z cwd <"$tmp"; and [ "$cwd" != "$PWD" ]; and test -d "$cwd"
-            builtin cd -- "$cwd"
-        end
-        rm -f -- "$tmp"
+      # config fish
+      interactiveShellInit = ''
+        set fish_greeting ""  # 关闭欢迎语
+        fish_vi_key_bindings  # 使用 Vi 模式
+        set -gx EDITOR nvim
+        # starship init fish | source  # starship
+        # zoxide init fish | source # zoxide
+        # direnv hook fish | source  # direnv
       '';
+
+      # function
+      functions = {
+        y = ''
+          set tmp (mktemp -t "yazi-cwd.XXXXXX")
+          command yazi $argv --cwd-file="$tmp"
+          if read -z cwd <"$tmp"; and [ "$cwd" != "$PWD" ]; and test -d "$cwd"
+              builtin cd -- "$cwd"
+          end
+          rm -f -- "$tmp"
+        '';
+      };
     };
-  };
 
-  programs.bash = {
-    enable = true;
-    initExtra = ''
-      exec fish
-    '';
-  };
+    bash = {
+      enable = true;
+      initExtra = ''
+        if [ -x "$(command -v fish)" ] && [ -z "$FISH" ]; then
+            export FISH=1
+            exec fish
+        fi
+      '';
+      sessionVariables = {
+        EDITOR = "nvim";
+      };
+    };
 
-  # starship
-  programs.starship = {
-    enable = true;
-  };
+    # starship
+    starship.enable = true;
+    # zoxide
+    zoxide.enable = true;
 
+  };
   home.shellAliases = {
     # 文件与目录（用 eza 替代 ls）
     ls = "eza --icons"; # 带图标

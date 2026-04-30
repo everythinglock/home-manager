@@ -2,7 +2,6 @@ include "modules/keybind.kdl"
 include "modules/input.kdl"
 include "modules/windowRule.kdl"
 include "modules/layerRule.kdl"
-include "modules/environment.kdl"
 include "modules/startup.kdl"
 
 include "noctalia.kdl"
