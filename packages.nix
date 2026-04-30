@@ -1,25 +1,23 @@
 { pkgs, pkgsUnstable, ... }:
 {
   home.packages = with pkgs; [
-    #终端美化
-    fastfetch # 显示信息
-
     #终端工具
+    fastfetch # 显示信息
     bat # cat 强化
     eza # ls 强化
     htop # 显示cpu内存信息
     ripgrep # grep强化
     fd # find强化
     fzf # 文件搜索
-    zoxide # 地址跳转
-    foot # 终端
     yazi # 终端文件管理
     pkgsUnstable.zellij # tmux
 
     #桌面
+    vicinae # search app
     xwayland-satellite
     pkgsUnstable.chatbox # ai聊天
     qq
+    obsidian # 笔记
 
     #语言工具
     tree-sitter

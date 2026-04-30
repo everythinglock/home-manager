@@ -1,4 +1,5 @@
-{ pkgs, username, ... }: {
+{ pkgs, username, ... }:
+{
   home.username = username;
   home.homeDirectory = "/home/${username}";
   home.stateVersion = "25.11"; # Please read the comment before changing.
@@ -8,7 +9,8 @@
     ./dotfiles.nix
     ./programs.nix
     ./style.nix
-    ./session.nix
+    ./i18.nix
+    ./sessions.nix
   ];
 
   home.sessionVariables = {
