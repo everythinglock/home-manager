@@ -1,42 +1,54 @@
 { pkgs, pkgsUnstable, ... }:
 {
   home.packages = with pkgs; [
-    #终端工具
-    fastfetch # 显示信息
-    bat # cat 强化
-    eza # ls 强化
-    htop # 显示cpu内存信息
-    ripgrep # grep强化
-    fd # find强化
-    fzf # 文件搜索
-    yazi # 终端文件管理
-    pkgsUnstable.zellij # tmux
+    # 终端工具
+    bat
+    eza
+    fastfetch
+    fd
+    fzf
+    htop
+    pkgsUnstable.zellij
+    ripgrep
+    yazi
 
-    #桌面
-    vicinae # search app
-    xwayland-satellite
-    pkgsUnstable.chatbox # ai聊天
-    qq
-    obsidian # 笔记
-
-    #语言工具
+    # 代码工具
+    claude-code
     tree-sitter
+    vscode
+
+    # GUI 应用
+    nwg-look
+    pkgsUnstable.chatbox
+    qq
+    quickshell
+    vicinae
+    xfce.thunar
+    xwayland-satellite
+
+    # 办公与笔记
+    libreoffice
+    obsidian
+
+    # 语言工具
     cargo
     gcc
     nodejs
+    pipx
     python313
     python313Packages.pip
-    pipx
 
-    #git
+    # Git 相关
     git
     lazygit
-    #截图套件
+
+    # 截图套件
     grim
-    slurp
     satty
-    #剪切版
-    wl-clipboard
+    slurp
+
+    # 剪切板
     cliphist
+    wl-clipboard
   ];
 }

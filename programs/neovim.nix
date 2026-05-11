@@ -14,15 +14,10 @@
       unzip
       curl
       luajit
-
-      # lazyvim tool
+      nodejs
+      python313
       ripgrep
       fd
-
-      # lsp tool
-      nodejs_24
-
-      python313
 
       # lsp
       lua-language-server
@@ -36,9 +31,6 @@
       statix
 
       shfmt
-
-      cmake-lint
-      neocmakelsp
     ];
   };
 }

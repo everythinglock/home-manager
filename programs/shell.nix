@@ -53,6 +53,7 @@
     la = "eza -a --icons"; # 显示隐藏文件
     l = "eza -l --icons"; # 长格式
     tree = "eza --tree --icons";
+    yz = "yazi";
 
     # 导航（zoxide 替代 cd）
     cd = "z"; # zoxide 跳转

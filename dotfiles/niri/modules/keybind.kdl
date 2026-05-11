@@ -5,6 +5,9 @@ binds {
     // Terminal
     Mod+T hotkey-overlay-title="Open Terminal" { spawn "foot"; }
 
+    // Files Manager
+    Mod+E hotkey-overlay-title="Open Thunar" { spawn "thunar"; }
+
     // Noctalic
     // Core Noctalia binds
     Mod+D { spawn-sh "vicinae toggle"; }

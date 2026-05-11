@@ -11,6 +11,7 @@
     ./style.nix
     ./i18.nix
     ./sessions.nix
+    ./xdg.nix
   ];
 
   home.sessionVariables = {
