@@ -1,11 +1,8 @@
-{ username, ... }:
-let
-  noctaliaInclude =
-    if builtins.pathExists "/home/${username}/.config/niri/noctalia.kdl" then
-      ''include "noctalia.kdl"''
-    else
-      "";
-in
+{
+  lib,
+  config,
+  ...
+}:
 {
   xdg.configFile = {
     "niri/config.kdl".text = ''
@@ -14,9 +11,17 @@ in
       include "modules/windowRule.kdl"
       include "modules/layerRule.kdl"
       include "modules/startup.kdl"
-      ${noctaliaInclude}
+
+      include "noctalia.kdl"
     '';
     "niri/modules".source = ./modules;
   };
-
+  home.activation.createNoctalia = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    target="${config.home.homeDirectory}/.config/niri/noctalia.kdl"
+    if [ ! -e "$target" ]; then
+      mkdir -p "$(dirname "$target")"
+      touch "$target"
+      chmod u+w "$target"
+    fi
+  '';
 }
