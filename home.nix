@@ -1,25 +1,18 @@
-{ pkgs, username, ... }:
+{ username, ... }:
 {
-  home.username = username;
-  home.homeDirectory = "/home/${username}";
-  home.stateVersion = "25.11"; # Please read the comment before changing.
-
-  imports = [
-    ./packages.nix
-    ./dotfiles.nix
-    ./programs.nix
-    ./style.nix
-    ./i18.nix
-    ./sessions.nix
-    ./xdg.nix
-  ];
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
+  home = {
+    inherit username;
+    homeDirectory = "/home/${username}";
+    stateVersion = "25.11";
   };
 
-  home.sessionPath = [
-    "$HOME/.nix-profile/bin"
+  imports = [
+    ./dotfiles.nix
+    ./inputMethod.nix
+    ./nixvim
+    ./packages.nix
+    ./programs
+    ./sessions.nix
+    ./ui.nix
   ];
-
 }
