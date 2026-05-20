@@ -5,11 +5,10 @@
     claude-code
     vscode
 
-    # niri配套
+    # gui
     nwg-look
     vicinae # app search
     pcmanfm # file manager
-    xwayland-satellite # xwayland
 
     grim
     satty

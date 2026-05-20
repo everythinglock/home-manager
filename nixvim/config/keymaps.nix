@@ -9,7 +9,7 @@
         "n"
         "v"
       ];
-      key = "<C-s>";
+      key = "<leader>bs";
       action = "<cmd>w<CR>";
       options = {
         desc = "Save file";

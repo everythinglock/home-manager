@@ -22,6 +22,9 @@
     }:
     let
       system = "x86_64-linux";
+      username = "fd";
+    in
+    let
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -37,9 +40,7 @@
           inherit pkgs;
           extraSpecialArgs = {
             inherit upkgs;
-            username = "fd";
-            dotDir = "dotfiles";
-            homeDir = "homefiles";
+            inherit username;
           };
           modules = [
             ./home.nix

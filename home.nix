@@ -7,11 +7,12 @@
   };
 
   imports = [
-    ./dotfiles.nix
-    ./inputMethod.nix
+    ./applications
+    ./homefiles
     ./nixvim
+    ./shell
+
     ./packages.nix
-    ./programs
     ./sessions.nix
     ./ui.nix
   ];
