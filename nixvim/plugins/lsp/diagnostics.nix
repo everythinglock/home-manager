@@ -3,10 +3,7 @@
     update_in_insert = false;
     severity_sort = true;
 
-    virtual_text = {
-      severity.min = "warn";
-      source = "if_many";
-    };
+    virtual_text = false;
     virtual_lines = {
       current_line = true;
     };
