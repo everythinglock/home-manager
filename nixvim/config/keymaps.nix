@@ -340,14 +340,6 @@
     # ═══════════════════════════════════════
     {
       mode = "n";
-      key = "<leader>so";
-      action = "<cmd>so %<CR>";
-      options = {
-        desc = "Source current file";
-      };
-    }
-    {
-      mode = "n";
       key = "<leader>re";
       action = "<cmd>e!<CR>";
       options = {

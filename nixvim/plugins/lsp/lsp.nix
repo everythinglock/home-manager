@@ -1,5 +1,6 @@
+{ settings, ... }:
 let
-  inherit (import ./settings.nix) lsp;
+  inherit (settings) lsp;
 in
 {
   plugins.lsp = {
@@ -20,6 +21,8 @@ in
       "gD" = "references";
       "gt" = "type_definition";
       "gi" = "implementation";
+      "<leader>rn" = "rename";
+      "<leader>ca" = "code_action";
       "K" = "hover";
     };
   };

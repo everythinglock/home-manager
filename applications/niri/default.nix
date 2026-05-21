@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  username,
   ...
 }:
 {
@@ -17,7 +18,7 @@
     "niri/modules".source = ./modules;
   };
   home.activation.createNoctalia = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    target="${config.home.homeDirectory}/.config/niri/noctalia.kdl"
+    target="/home/${username}/.config/niri/noctalia.kdl"
     if [ ! -e "$target" ]; then
       mkdir -p "$(dirname "$target")"
       touch "$target"

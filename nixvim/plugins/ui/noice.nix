@@ -23,12 +23,6 @@
   };
   keymaps = [
     {
-      key = "<leader>sn";
-      mode = [ "n" ];
-      action.__raw = "''"; # 空字符串占位
-      options.desc = "+noice";
-    }
-    {
       key = "<S-Enter>";
       mode = [ "c" ];
       action.__raw = ''function() require("noice").redirect(vim.fn.getcmdline()) end'';

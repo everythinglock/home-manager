@@ -13,6 +13,8 @@
 
     float = {
       border = "rounded";
+      source = "always";
+      prefix = " ";
     };
 
     jump = {

@@ -5,6 +5,9 @@
     claude-code
     vscode
 
+    # language
+    nodejs
+
     # gui
     nwg-look
     vicinae # app search

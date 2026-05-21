@@ -1,24 +1,6 @@
 {
   autoCmd = [
     {
-      event = [ "BufWritePre" ];
-      pattern = "*";
-      command = "lua vim.lsp.buf.format()";
-      desc = "保存时自动格式化";
-    }
-    {
-      event = [ "InsertEnter" ];
-      pattern = "*";
-      command = "set cursorline";
-      desc = "进入插入模式时取消行高亮";
-    }
-    {
-      event = [ "InsertLeave" ];
-      pattern = "*";
-      command = "set nocursorline";
-      desc = "离开插入模式时高亮行";
-    }
-    {
       event = [ "BufReadPost" ];
       pattern = "*";
       command = ''

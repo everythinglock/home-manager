@@ -1,15 +1,9 @@
 {
-  plugins.nvim-autopairs = {
+  plugins.mini-pairs = {
     enable = true;
     lazyLoad.settings.event = [
       "BufReadPost"
       "BufNewFile"
     ];
-    settings = {
-      disable_filetype = [
-        "TelescopePrompt"
-        "vim"
-      ];
-    };
   };
 }

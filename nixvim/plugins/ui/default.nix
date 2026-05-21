@@ -3,7 +3,7 @@
     ./themes.nix
     ./icons.nix
     ./statusline.nix
-    ./tabbar.nix
+    # ./bufferline.nix
     ./noice.nix
   ];
 }
