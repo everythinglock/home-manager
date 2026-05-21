@@ -21,8 +21,8 @@ in
       "gD" = "references";
       "gt" = "type_definition";
       "gi" = "implementation";
-      "<leader>rn" = "rename";
-      "<leader>ca" = "code_action";
+      "<leader>ln" = "rename";
+      "<leader>la" = "code_action";
       "K" = "hover";
     };
   };

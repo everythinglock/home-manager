@@ -98,33 +98,6 @@
       };
     }
     # ═══════════════════════════════════════
-    #  📋 Tab
-    # ═══════════════════════════════════════
-    {
-      mode = "n";
-      key = "<leader>tn";
-      action = "<cmd>tabnew<CR>";
-      options.desc = "New tab";
-    }
-    {
-      mode = "n";
-      key = "<leader>tc";
-      action = "<cmd>tabclose<CR>";
-      options.desc = "Close tab";
-    }
-    {
-      mode = "n";
-      key = "<leader>th";
-      action = "<cmd>tabprevious<CR>";
-      options.desc = "Previous tab";
-    }
-    {
-      mode = "n";
-      key = "<leader>tl";
-      action = "<cmd>tabnext<CR>";
-      options.desc = "Next tab";
-    } # 用 tl 避免和 tn 冲突
-    # ═══════════════════════════════════════
     #  📋 Window
     # ═══════════════════════════════════════
     {

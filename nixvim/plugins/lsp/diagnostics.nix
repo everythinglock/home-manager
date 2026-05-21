@@ -52,13 +52,13 @@
     }
     {
       mode = "n";
-      key = "<leader>df";
+      key = "<leader>xf";
       action.__raw = "vim.diagnostic.open_float";
       options.desc = "Show diagnostic float";
     }
     {
       mode = "n";
-      key = "<leader>dl";
+      key = "<leader>xl";
       action.__raw = "vim.diagnostic.setloclist";
       options.desc = "Send diagnostics to location list";
     }
