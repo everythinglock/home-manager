@@ -1,33 +1,47 @@
-{ pkgs, upkgs, ... }:
+{ pkgs, upkgs, lib, ... }:
+let
+  packages = {
+    ai = {
+      terminal = pkgs.claude-code;
+      chatbox = upkgs.chatbox;
+    };
+
+    # 编辑器与开发
+    editor = {
+      vscode = pkgs.vscode;
+    };
+
+    language = {
+      nodejs = pkgs.nodejs;
+    };
+
+    desktop = {
+      theme = pkgs.nwg-look;
+      launcher = pkgs.vicinae;
+      fileManager = pkgs.pcmanfm;
+    };
+
+    screenshot = {
+      grabber = pkgs.grim;
+      selector = pkgs.slurp;
+      annotator = pkgs.satty;
+    };
+
+    clipboard = {
+      history = pkgs.cliphist;
+      backend = pkgs.wl-clipboard;
+    };
+
+    office = {
+      writer = pkgs.libreoffice;
+      notes = pkgs.obsidian;
+    };
+
+    social = {
+      qq = pkgs.qq;
+    };
+  };
+in
 {
-  home.packages = with pkgs; [
-    # 代码
-    claude-code
-    vscode
-
-    # language
-    nodejs
-
-    # gui
-    nwg-look
-    vicinae # app search
-    pcmanfm # file manager
-
-    grim
-    satty
-    slurp # 截图
-
-    cliphist
-    wl-clipboard # 剪切板
-
-    # 办公与笔记
-    libreoffice
-    obsidian
-
-    # AI
-    upkgs.chatbox
-
-    # 通讯
-    qq
-  ];
+  home.packages = lib.collect lib.isDerivation packages;
 }

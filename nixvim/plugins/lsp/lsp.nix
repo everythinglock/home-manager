@@ -1,6 +1,8 @@
-{ settings, ... }:
 let
-  inherit (settings) lsp;
+  cpp = "clangd";
+  python = "ty";
+  nix = "nil_ls";
+  lua = "lua_ls";
 in
 {
   plugins.lsp = {
@@ -11,10 +13,10 @@ in
     ];
     inlayHints = true;
     servers = {
-      ${lsp.c}.enable = true;
-      ${lsp.lua}.enable = true;
-      ${lsp.nix}.enable = true;
-      ${lsp.python}.enable = true;
+      ${cpp}.enable = true;
+      ${lua}.enable = true;
+      ${nix}.enable = true;
+      ${python}.enable = true;
     };
     keymaps.lspBuf = {
       "<leader>cr" = "rename";

@@ -2,6 +2,7 @@
   imports = [
     ./completion.nix
     ./git.nix
+    ./neotest.nix
     ./oil.nix
     ./persistence.nix
     ./snacks.nix

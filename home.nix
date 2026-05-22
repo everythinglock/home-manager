@@ -10,7 +10,7 @@
     ./applications
     ./homefiles
     ./nixvim
-    ./shell
+    ./cli
 
     ./packages.nix
     ./sessions.nix

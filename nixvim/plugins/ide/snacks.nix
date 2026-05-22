@@ -127,7 +127,7 @@
       options.desc = "Lazygit";
     }
     {
-      key = "<leader>gb";
+      key = "<leader>gB";
       mode = [
         "n"
         "v"

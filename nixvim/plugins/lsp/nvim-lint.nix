@@ -1,8 +1,25 @@
-{ settings, ... }:
+{ pkgs, ... }:
 let
-  inherit (settings) lint;
+  c = {
+    pkg = pkgs.clang-tools;
+    name = "clangtidy";
+  };
+  nix = {
+    pkg = pkgs.statix;
+    name = "statix";
+  };
+  python = {
+    pkg = pkgs.ruff;
+    name = "ruff";
+  };
 in
 {
+  extraPackages = [
+    c.pkg
+    nix.pkg
+    python.pkg
+  ];
+
   plugins.lint = {
     enable = true;
     lazyLoad.settings.event = [
@@ -21,12 +38,10 @@ in
       }
     ];
     lintersByFt = {
-      inherit (lint)
-        c
-        cpp
-        python
-        nix
-        ;
+      c = [ c.name ];
+      cpp = [ c.name ];
+      nix = [ nix.name ];
+      python = [ python.name ];
     };
   };
 }

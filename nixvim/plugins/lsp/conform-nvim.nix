@@ -1,8 +1,25 @@
-{ settings, ... }:
+{ pkgs, ... }:
 let
-  inherit (settings) format;
+  c = {
+    pkg = pkgs.clang-tools;
+    name = "clang-format";
+  };
+  nix = {
+    pkg = pkgs.nixfmt;
+    name = "nixfmt";
+  };
+  python = {
+    pkg = pkgs.ruff;
+    name = "ruff_format";
+  };
 in
 {
+  extraPackages = [
+    c.pkg
+    nix.pkg
+    python.pkg
+  ];
+
   plugins.conform-nvim = {
     enable = true;
     lazyLoad.settings.keys = [
@@ -14,12 +31,10 @@ in
     ];
     settings = {
       formatters_by_ft = {
-        inherit (format)
-          c
-          cpp
-          nix
-          python
-          ;
+        c = [ c.name ];
+        cpp = [ c.name ];
+        nix = [ nix.name ];
+        python = [ python.name ];
       };
     };
   };

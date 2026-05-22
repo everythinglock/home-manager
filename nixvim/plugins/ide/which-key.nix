@@ -7,7 +7,6 @@
       preset = "modern";
 
       spec = [
-        # normal
         {
           __unkeyed-1 = "<leader>b";
           group = "Buffers";
@@ -17,6 +16,7 @@
           __unkeyed-1 = "<leader>c";
           group = "Change";
           icon = " ";
+          mode = [ "v" "n" ];
         }
         {
           __unkeyed-1 = "<leader>f";
@@ -27,6 +27,7 @@
           __unkeyed-1 = "<leader>g";
           group = "Git hunks";
           icon = "󰊢 ";
+          mode = [ "v" "n" ];
         }
         {
           __unkeyed-1 = "<leader>n";
@@ -62,12 +63,7 @@
           __unkeyed-1 = "<leader>y";
           group = "Yank";
           icon = "󰅍 ";
-        }
-        # visual
-        {
-          __unkeyed-1 = "<leader>gh";
-          desc = "Hunk Actions";
-          mode = "v";
+          mode = [ "v" "n" ];
         }
       ];
     };

@@ -56,7 +56,7 @@
       key = "<leader>ns";
       mode = [ "n" ];
       action.__raw = ''function() require("noice").cmd("pick") end'';
-      options.desc = "Noice Picker (Telescope/FzfLua)";
+      options.desc = "Noice Picker";
     }
   ];
 }
