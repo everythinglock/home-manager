@@ -5,9 +5,12 @@ in
 {
   plugins.conform-nvim = {
     enable = true;
-    lazyLoad.settings.event = [
-      "BufNewFile"
-      "BufReadPost"
+    lazyLoad.settings.keys = [
+      {
+        __unkeyed-1 = "<leader>cf";
+        __unkeyed-2.__raw = ''function() require("conform").format({ bufnr = 0, lsp_format = "fallback" }) end'';
+        desc = "Format Current Buffer";
+      }
     ];
     settings = {
       formatters_by_ft = {
@@ -17,10 +20,6 @@ in
           nix
           python
           ;
-      };
-      format_on_save = {
-        timeout_ms = 2500;
-        lsp_format = "fallback";
       };
     };
   };

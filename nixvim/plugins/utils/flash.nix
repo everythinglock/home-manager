@@ -1,46 +1,42 @@
 {
   plugins.flash = {
     enable = true;
-    lazyLoad.settings.event = [
-      "BufReadPost"
-      "BufNewFile"
+    lazyLoad.settings.keys = [
+      {
+        mode = [
+          "n"
+          "x"
+          "o"
+        ];
+        __unkeyed-1 = "ss";
+        __unkeyed-2 = "<cmd>lua require('flash').jump()<cr>";
+        desc = "Flash";
+      }
+      {
+        mode = [
+          "n"
+          "x"
+          "o"
+        ];
+        __unkeyed-1 = "S";
+        __unkeyed-2 = "<cmd>lua require('flash').treesitter()<cr>";
+        desc = "Flash Treesitter";
+      }
+      {
+        mode = "o";
+        __unkeyed-1 = "r";
+        __unkeyed-2 = "<cmd>lua require('flash').remote()<cr>";
+        desc = "Remote Flash";
+      }
+      {
+        mode = [
+          "o"
+          "x"
+        ];
+        __unkeyed-1 = "R";
+        __unkeyed-2 = "<cmd>lua require('flash').treesitter_search()<cr>";
+        desc = "Treesitter Search";
+      }
     ];
   };
-  keymaps = [
-    {
-      key = "ss";
-      mode = [
-        "n"
-        "x"
-        "o"
-      ];
-      action = "<cmd>lua require('flash').jump()<cr>";
-      options.desc = "Flash";
-    }
-    {
-      key = "S";
-      mode = [
-        "n"
-        "x"
-        "o"
-      ];
-      action = "<cmd>lua require('flash').treesitter()<cr>";
-      options.desc = "Flash Treesitter";
-    }
-    {
-      key = "r";
-      mode = "o";
-      action = "<cmd>lua require('flash').remote()<cr>";
-      options.desc = "Remote Flash";
-    }
-    {
-      key = "R";
-      mode = [
-        "o"
-        "x"
-      ];
-      action = "<cmd>lua require('flash').treesitter_search()<cr>";
-      options.desc = "Treesitter Search";
-    }
-  ];
 }

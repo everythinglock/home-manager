@@ -1,7 +1,11 @@
 {
-  plugins.friendly-snippets.enable = true;
+  plugins.friendly-snippets = {
+    enable = true;
+    lazyLoad.settings.event = "InsertEnter";
+  };
   plugins.luasnip = {
     enable = true;
+    lazyLoad.settings.event = "InsertEnter";
   };
   plugins.blink-cmp = {
     enable = true;

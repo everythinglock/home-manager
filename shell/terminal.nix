@@ -3,7 +3,7 @@
     enable = true;
     settings = {
       main = {
-        font = "monospace:size=13";
+        font = "JetBrains Mono:size=13, JetBrainsMono Nerd Font:size=13";
       };
       colors = {
         # 基本颜色

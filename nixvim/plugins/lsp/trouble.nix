@@ -1,20 +1,19 @@
 {
   plugins.trouble = {
     enable = true;
-    lazyLoad.settings.cmd = "Trouble";
+    lazyLoad.settings.keys = [
+      {
+        mode = [ "n" ];
+        __unkeyed-1 = "<leader>xx";
+        __unkeyed-2 = "<cmd>Trouble diagnostics toggle<cr>";
+        desc = "Toggle Trouble";
+      }
+      {
+        mode = [ "n" ];
+        __unkeyed-1 = "<leader>xX";
+        __unkeyed-2 = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>";
+        desc = "Buffer Diagnostics";
+      }
+    ];
   };
-  keymaps = [
-    {
-      key = "<leader>xx";
-      mode = [ "n" ];
-      action = "<cmd>Trouble diagnostics toggle<cr>";
-      options.desc = "Toggle Trouble";
-    }
-    {
-      key = "<leader>xX";
-      mode = [ "n" ];
-      action = "<cmd>Trouble diagnostics toggle filter.buf=0<cr>";
-      options.desc = "Buffer Diagnostics";
-    }
-  ];
 }

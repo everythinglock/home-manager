@@ -1,7 +1,14 @@
 {
   plugins.oil = {
     enable = true;
-    lazyLoad.settings.cmd = "Oil";
+    lazyLoad.settings.keys = [
+      {
+        __unkeyed-1 = "-";
+        __unkeyed-2 = "<cmd>Oil<cr>";
+        mode = "n";
+        desc = "Open Oil File Manager";
+      }
+    ];
     settings = {
       columns = [ "icon" ];
       keymaps = {
@@ -31,12 +38,4 @@
       wrap = false;
     };
   };
-  keymaps = [
-    {
-      key = "-";
-      mode = "n";
-      action = "<cmd>Oil<cr>";
-      options.desc = "Open Oil File Manager";
-    }
-  ];
 }

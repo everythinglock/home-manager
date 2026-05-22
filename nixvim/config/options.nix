@@ -3,13 +3,14 @@
   opts = {
     number = true; # 显示行号
     relativenumber = true; # 相对行号（便于跳转）
-    shiftwidth = 2; # 缩进宽度
-    tabstop = 2; # Tab 宽度
+    shiftwidth = 4; # 缩进宽度
+    tabstop = 4; # Tab 宽度
     expandtab = true; # 将 Tab 转换为空格
     mouse = "a"; # 启用鼠标支持
     # clipboard = "unnamedplus";  # 系统剪贴板
     ignorecase = true; # 搜索忽略大小写
     smartcase = true; # 若包含大写则大小写敏感
+    laststatus = 3; # 开启全局状态栏
     undofile = true; # 持久撤销
     hlsearch = true; # 搜索高亮
     incsearch = true; # 增量搜索

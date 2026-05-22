@@ -34,19 +34,6 @@
     };
   };
   keymaps = [
-    # ── 诊断跳转 ──
-    {
-      mode = "n";
-      key = "[d";
-      action.__raw = "vim.diagnostic.goto_prev";
-      options.desc = "Previous diagnostic";
-    }
-    {
-      mode = "n";
-      key = "]d";
-      action.__raw = "vim.diagnostic.goto_next";
-      options.desc = "Next diagnostic";
-    }
     {
       mode = "n";
       key = "<leader>xf";

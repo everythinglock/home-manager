@@ -29,31 +29,31 @@
       options.desc = "Redirect Cmdline";
     }
     {
-      key = "<leader>snl";
+      key = "<leader>nl";
       mode = [ "n" ];
       action.__raw = ''function() require("noice").cmd("last") end'';
       options.desc = "Noice Last Message";
     }
     {
-      key = "<leader>snh";
+      key = "<leader>nh";
       mode = [ "n" ];
       action.__raw = ''function() require("noice").cmd("history") end'';
       options.desc = "Noice History";
     }
     {
-      key = "<leader>sna";
+      key = "<leader>na";
       mode = [ "n" ];
       action.__raw = ''function() require("noice").cmd("all") end'';
       options.desc = "Noice All";
     }
     {
-      key = "<leader>snd";
+      key = "<leader>nd";
       mode = [ "n" ];
       action.__raw = ''function() require("noice").cmd("dismiss") end'';
       options.desc = "Dismiss All";
     }
     {
-      key = "<leader>sns";
+      key = "<leader>ns";
       mode = [ "n" ];
       action.__raw = ''function() require("noice").cmd("pick") end'';
       options.desc = "Noice Picker (Telescope/FzfLua)";

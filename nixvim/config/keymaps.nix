@@ -5,15 +5,16 @@
     #  📁 Save/Quit
     # ═══════════════════════════════════════
     {
-      mode = [
-        "n"
-        "v"
-      ];
+      mode = "n";
       key = "<leader>bs";
       action = "<cmd>w<CR>";
-      options = {
-        desc = "Save file";
-      };
+      options.desc = "Save current buffer";
+    }
+    {
+      mode = "n";
+      key = "<leader>bS";
+      action = "<cmd>wa<CR>";
+      options.desc = "Save all buffers";
     }
     {
       mode = "n";
@@ -83,14 +84,6 @@
     }
     {
       mode = "n";
-      key = "<leader>bd";
-      action = "<cmd>bd<CR>";
-      options = {
-        desc = "Delete buffer";
-      };
-    }
-    {
-      mode = "n";
       key = "<leader>bo";
       action = "<cmd>%bd|e#<CR>";
       options = {
@@ -130,30 +123,6 @@
       action = "<C-w>l";
       options = {
         desc = "Focus right window";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>sv";
-      action = "<C-w>v";
-      options = {
-        desc = "Split vertical";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>sh";
-      action = "<C-w>s";
-      options = {
-        desc = "Split horizontal";
-      };
-    }
-    {
-      mode = "n";
-      key = "<leader>se";
-      action = "<C-w>=";
-      options = {
-        desc = "Equalize splits";
       };
     }
     # ═══════════════════════════════════════
@@ -230,12 +199,6 @@
     # ═══════════════════════════════════════
     #  ✏️ Yank
     # ═══════════════════════════════════════
-    {
-      mode = "n";
-      key = "<leader>yr";
-      action = "<cmd>reg<CR>";
-      options.desc = "Show registers";
-    }
     # 复制到系统剪贴板 (yank)
     {
       mode = [
@@ -276,19 +239,19 @@
     }
     # 从系统剪贴板粘贴 (paste)
     {
-      mode = [
-        "n"
-        "v"
-      ];
+      mode = "n";
       key = "<leader>yp";
       action = ''"+p'';
       options.desc = "Paste after cursor (system)";
     }
     {
-      mode = [
-        "n"
-        "v"
-      ];
+      mode = "v";
+      key = "<leader>yp";
+      action = ''"+P'';
+      options.desc = "Paste";
+    }
+    {
+      mode = "n";
       key = "<leader>yP";
       action = ''"+P'';
       options.desc = "Paste before cursor (system)";
@@ -321,11 +284,36 @@
     }
     {
       mode = "n";
-      key = "<leader>fc";
-      action = "<cmd>e $HOME/.config/nvim/init.lua<CR>";
-      options = {
-        desc = "Reload current file";
-      };
+      key = "<Esc>";
+      action = "<cmd>nohlsearch<CR>";
+      options.desc = "Clear Search Highlights";
+    }
+    {
+      mode = "n";
+      key = "<leader>rl";
+      action.__raw = ''
+        function()
+          -- 1. 获取当前 Buffer 的所有活动 LSP 客户端
+          local clients = vim.lsp.get_clients({ bufnr = 0 })
+          
+          if #clients == 0 then
+              vim.notify("No active LSP clients to restart", vim.log.levels.WARN, { title = "LSP" })
+              return
+          end
+
+          -- 2. 依次关闭
+          for _, client in ipairs(clients) do
+              client:stop() -- 0.11 推荐的原生停止 API
+          end
+
+          -- 3. 延迟一瞬间刷新 Buffer，强制重新触发 vim.lsp.enable 加载
+          vim.defer_fn(function()
+              vim.cmd("edit!") -- 刷新当前文件，LSP 会随之自动起飞
+              vim.notify("Native LSP Restarted!", vim.log.levels.INFO, { title = "LSP" })
+          end, 150) -- 150ms 延迟，给后台进程一点喘息时间
+        end
+      '';
+      options.desc = "Reload/Restart Native LSP";
     }
   ];
 }

@@ -14,9 +14,14 @@
           icon = "󰓩 ";
         }
         {
+          __unkeyed-1 = "<leader>c";
+          group = "Change";
+          icon = " ";
+        }
+        {
           __unkeyed-1 = "<leader>f";
-          group = "Files";
-          icon = " ";
+          group = "Find";
+          icon = " ";
         }
         {
           __unkeyed-1 = "<leader>g";
@@ -29,23 +34,18 @@
           icon = "󰱅 ";
         }
         {
-          __unkeyed-1 = "<leader>l";
-          group = "Lsp";
-          icon = " ";
+          __unkeyed-1 = "<leader>n";
+          group = "Notify";
+          icon = " ";
         }
         {
-          __unkeyed-1 = "<leader>s";
-          group = "Search / Noice";
-          icon = " ";
-        }
-        {
-          __unkeyed-1 = "<leader>sn";
-          group = "Noice Logic";
-          icon = "󱇦 ";
+          __unkeyed-1 = "<leader>r";
+          group = "Reload";
+          icon = " ";
         }
         {
           __unkeyed-1 = "<leader>t";
-          group = "Tabs";
+          group = "Toggle";
           icon = " ";
         }
         {
@@ -55,13 +55,8 @@
         }
         {
           __unkeyed-1 = "<leader>y";
-          group = "Clipboard / Yank";
+          group = "Yank";
           icon = "󰅍 ";
-        }
-        {
-          __unkeyed-1 = "<leader>r";
-          group = "Re";
-          icon = " ";
         }
         # visual
         {

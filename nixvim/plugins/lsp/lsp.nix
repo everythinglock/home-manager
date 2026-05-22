@@ -17,12 +17,8 @@ in
       ${lsp.python}.enable = true;
     };
     keymaps.lspBuf = {
-      "gd" = "definition";
-      "gD" = "references";
-      "gt" = "type_definition";
-      "gi" = "implementation";
-      "<leader>ln" = "rename";
-      "<leader>la" = "code_action";
+      "<leader>cr" = "rename";
+      "<leader>ca" = "code_action";
       "K" = "hover";
     };
   };

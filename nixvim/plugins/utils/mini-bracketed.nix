@@ -1,10 +1,7 @@
 {
   plugins.mini-bracketed = {
     enable = true;
-    lazyLoad.settings.event = [
-      "BufReadPost"
-      "BufNewFile"
-    ];
+    lazyLoad.settings.event = "DeferredUIEnter";
     settings = {
       buffer = {
         suffix = "b";
