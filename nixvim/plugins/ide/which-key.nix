@@ -25,23 +25,28 @@
         }
         {
           __unkeyed-1 = "<leader>g";
-          group = "Git";
+          group = "Git hunks";
           icon = "󰊢 ";
-        }
-        {
-          __unkeyed-1 = "<leader>gh";
-          group = "Hunks (Git)";
-          icon = "󰱅 ";
         }
         {
           __unkeyed-1 = "<leader>n";
           group = "Notify";
-          icon = " ";
+          icon = "󰎟 ";
         }
         {
           __unkeyed-1 = "<leader>r";
           group = "Reload";
           icon = " ";
+        }
+        {
+          __unkeyed-1 = "<leader>s";
+          group = "Search";
+          icon = "󰨼 ";
+        }
+        {
+          __unkeyed-1 = "<leader>sg";
+          group = "Git";
+          icon = "󰊢 ";
         }
         {
           __unkeyed-1 = "<leader>t";

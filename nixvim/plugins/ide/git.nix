@@ -43,21 +43,21 @@
 
           -- --- 操作 (Actions) ---
           -- 块级操作 (Stage/Reset hunk)
-          map('n', '<leader>ghs', gs.stage_hunk, { desc = "Stage Hunk" })
-          map('n', '<leader>ghr', gs.reset_hunk, { desc = "Reset Hunk" })
+          map('n', '<leader>gs', gs.stage_hunk, { desc = "Stage Hunk" })
+          map('n', '<leader>gr', gs.reset_hunk, { desc = "Reset Hunk" })
           
           -- 可视模式操作 (Stage/Reset selection)
-          map('v', '<leader>ghs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = "Stage Selection" })
-          map('v', '<leader>ghr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = "Reset Selection" })
+          map('v', '<leader>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = "Stage Selection" })
+          map('v', '<leader>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, { desc = "Reset Selection" })
           
           -- 全局/预览/审查操作
-          map('n', '<leader>ghS', gs.stage_buffer, { desc = "Stage Buffer" })
-          map('n', '<leader>ghu', gs.undo_stage_hunk, { desc = "Undo Stage Hunk" })
-          map('n', '<leader>ghR', gs.reset_buffer, { desc = "Reset Buffer" })
-          map('n', '<leader>ghp', gs.preview_hunk, { desc = "Preview Hunk" })
-          map('n', '<leader>ghb', function() gs.blame_line{full=true} end, { desc = "Blame Line" })
-          map('n', '<leader>ghd', gs.diffthis, { desc = "Diff This" })
-          map('n', '<leader>ghD', function() gs.diffthis('~') end, { desc = "Diff This (~)" })
+          map('n', '<leader>gS', gs.stage_buffer, { desc = "Stage Buffer" })
+          map('n', '<leader>gu', gs.undo_stage_hunk, { desc = "Undo Stage Hunk" })
+          map('n', '<leader>gR', gs.reset_buffer, { desc = "Reset Buffer" })
+          map('n', '<leader>gp', gs.preview_hunk, { desc = "Preview Hunk" })
+          map('n', '<leader>gb', function() gs.blame_line{full=true} end, { desc = "Blame Line" })
+          map('n', '<leader>gd', gs.diffthis, { desc = "Diff This" })
+          map('n', '<leader>gD', function() gs.diffthis('~') end, { desc = "Diff This (~)" })
 
           -- --- 文本对象 (Text Objects) ---
           -- 支持 cih (change inner hunk), dah (delete a hunk) 等操作

@@ -1,10 +1,11 @@
 {
   imports = [
-    ./autopairs.nix
     ./completion.nix
     ./git.nix
-    ./grug-far.nix
+    ./oil.nix
+    ./persistence.nix
     ./snacks.nix
     ./treesitter.nix
+    ./which-key.nix
   ];
 }

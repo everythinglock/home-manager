@@ -272,7 +272,7 @@
       options.desc = "Undo tree: newer";
     }
     # ═══════════════════════════════════════
-    #  ⚙️ 其它实用
+    #  ⚙️ Reload
     # ═══════════════════════════════════════
     {
       mode = "n";
@@ -282,6 +282,27 @@
         desc = "Reload current file";
       };
     }
+    {
+      action.__raw = ''
+        function()
+          local current_file = vim.api.nvim_buf_get_name(0)
+          -- 防御性编程：如果是无名 buffer 或者是特殊 buffer（如 Terminal 或 Dashboard），直接返回
+          if current_file == "" or vim.bo.buftype ~= "" then
+            vim.notify("Cannot change directory: Not a valid file buffer", vim.log.levels.WARN, { title = "System" })
+            return
+          end
+          local current_dir = vim.fn.fnamemodify(current_file, ":p:h")
+          vim.api.nvim_set_current_dir(current_dir)
+          vim.notify("PWD changed to:\n" .. current_dir, vim.log.levels.INFO, { title = "System" })
+        end
+      '';
+      key = "<leader>r~";
+      mode = "n";
+      options.desc = "Reload CWD";
+    }
+    # ═══════════════════════════════════════
+    #  ⚙️ 其它实用
+    # ═══════════════════════════════════════
     {
       mode = "n";
       key = "<Esc>";
@@ -293,24 +314,18 @@
       key = "<leader>rl";
       action.__raw = ''
         function()
-          -- 1. 获取当前 Buffer 的所有活动 LSP 客户端
           local clients = vim.lsp.get_clients({ bufnr = 0 })
-          
           if #clients == 0 then
               vim.notify("No active LSP clients to restart", vim.log.levels.WARN, { title = "LSP" })
               return
           end
-
-          -- 2. 依次关闭
           for _, client in ipairs(clients) do
-              client:stop() -- 0.11 推荐的原生停止 API
+              client:stop()
           end
-
-          -- 3. 延迟一瞬间刷新 Buffer，强制重新触发 vim.lsp.enable 加载
           vim.defer_fn(function()
-              vim.cmd("edit!") -- 刷新当前文件，LSP 会随之自动起飞
+              vim.cmd("edit!")
               vim.notify("Native LSP Restarted!", vim.log.levels.INFO, { title = "LSP" })
-          end, 150) -- 150ms 延迟，给后台进程一点喘息时间
+          end, 150)
         end
       '';
       options.desc = "Reload/Restart Native LSP";
