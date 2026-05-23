@@ -2,16 +2,14 @@
   diagnostic.settings = {
     update_in_insert = false;
     severity_sort = true;
-
     virtual_text = false;
-    virtual_lines = {
-      current_line = true;
-    };
+    virtual_lines.current_line = true;
 
     float = {
       border = "rounded";
       source = "always";
       prefix = " ";
+      header = "";
     };
 
     jump = {

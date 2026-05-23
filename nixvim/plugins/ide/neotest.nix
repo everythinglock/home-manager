@@ -1,36 +1,32 @@
 { pkgs, ... }:
 let
-  python = {
-    pkg = pkgs.python313Packages.pytest;
-    name = "pytest";
-  };
+  pythonWithTest = pkgs.python313.withPackages (ps: [
+    ps.pytest
+  ]);
 in
 {
   extraPackages = [
-    python.pkg
+    pythonWithTest
   ];
+
   plugins.neotest = {
     enable = true;
     adapters = {
-      python = {
-        enable = true;
-        settings = {
-          runner = python.name;
-        };
-      };
+      python.enable = true;
+      ctest.enable = true;
     };
     settings = {
       status = {
         virtual_text = true;
       };
       output = {
-        open_on_run = true;
+        open_on_run = false; 
       };
     };
     lazyLoad.settings.keys = [
       {
         mode = "n";
-        __unkeyed-1 = "<leader>rr";
+        __unkeyed-1 = "<leader>ur";
         __unkeyed-2.__raw = ''
           function()
             require("neotest").run.run()
@@ -40,7 +36,7 @@ in
       }
       {
         mode = "n";
-        __unkeyed-1 = "<leader>rf";
+        __unkeyed-1 = "<leader>uf";
         __unkeyed-2.__raw = ''
           function()
             require("neotest").run.run(vim.api.nvim_buf_get_name(0))
@@ -50,7 +46,7 @@ in
       }
       {
         mode = "n";
-        __unkeyed-1 = "<leader>rs";
+        __unkeyed-1 = "<leader>us";
         __unkeyed-2.__raw = ''
           function()
             require("neotest").summary.toggle()
@@ -60,7 +56,7 @@ in
       }
       {
         mode = "n";
-        __unkeyed-1 = "<leader>ro";
+        __unkeyed-1 = "<leader>uo";
         __unkeyed-2.__raw = ''
           function()
             require("neotest").output.open({ enter = true, auto_close = true })
@@ -70,7 +66,7 @@ in
       }
       {
         mode = "n";
-        __unkeyed-1 = "<leader>rO";
+        __unkeyed-1 = "<leader>uO";
         __unkeyed-2.__raw = ''
           function()
             require("neotest").output_panel.toggle()
@@ -80,7 +76,7 @@ in
       }
       {
         mode = "n";
-        __unkeyed-1 = "<leader>rx";
+        __unkeyed-1 = "<leader>ux";
         __unkeyed-2.__raw = ''
           function()
             require("neotest").run.stop()

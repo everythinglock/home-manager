@@ -18,7 +18,7 @@
         virt_text_pos = "eol";
       };
 
-      on_attach.__raw = ''
+      on_attach = ''
         function(bufnr)
           local gs = package.loaded.gitsigns
 
@@ -41,7 +41,6 @@
             return '<Ignore>'
           end, {expr=true, desc = "Prev Git Hunk"})
 
-          -- --- 操作 (Actions) ---
           -- 块级操作 (Stage/Reset hunk)
           map('n', '<leader>gs', gs.stage_hunk, { desc = "Stage Hunk" })
           map('n', '<leader>gr', gs.reset_hunk, { desc = "Reset Hunk" })
@@ -56,7 +55,34 @@
           map('n', '<leader>gR', gs.reset_buffer, { desc = "Reset Buffer" })
           map('n', '<leader>gp', gs.preview_hunk, { desc = "Preview Hunk" })
           map('n', '<leader>gb', function() gs.blame_line{full=true} end, { desc = "Blame Line" })
-          map('n', '<leader>gd', gs.diffthis, { desc = "Diff This" })
+          map(
+            'n', 
+            '<leader>gd',
+            function()
+              local current_win = vim.api.nvim_get_current_win()
+              local current_tab = vim.api.nvim_get_current_tabpage()
+              local wins = vim.api.nvim_tabpage_list_wins(current_tab)
+              local diff_win = nil
+              for _, win in ipairs(wins) do
+                if vim.wo[win].diff and win ~= current_win then
+                  diff_win = win
+                  break
+                end
+              end
+              if diff_win then
+                vim.api.nvim_win_close(diff_win, true)
+                vim.cmd("diffoff")
+              else
+                -- 全局安全触发：这里用 pcall 防止在无名/不支持 git 的 buffer 下报错
+                local ok, gs = pcall(require, "gitsigns")
+                if ok then
+                  gs.diffthis()
+                else
+                  vim.notify("Git compiler not ready here", vim.log.levels.WARN)
+                end
+              end
+            end,
+            { desc = "Diff This" })
           map('n', '<leader>gD', function() gs.diffthis('~') end, { desc = "Diff This (~)" })
 
           -- --- 文本对象 (Text Objects) ---

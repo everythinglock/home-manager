@@ -1,6 +1,18 @@
 {
   autoCmd = [
     {
+      event = [ "InsertLeave" ];
+      pattern = "*";
+      command = ''lua vim.opt.cursorline=true'';
+      desc = "离开插入模式时高亮行";
+    }
+    {
+      event = [ "InsertEnter" ];
+      pattern = "*";
+      command = ''lua vim.opt.cursorline=false'';
+      desc = "进入插入模式时取消高亮行";
+    }
+    {
       event = [ "BufReadPost" ];
       pattern = "*";
       command = ''if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif'';
@@ -28,6 +40,32 @@
         end
       '';
       desc = "Nix indent";
+    }
+    {
+      event = [ "FileType" ];
+      pattern = [ "c" "cpp" "h" "hpp" ];
+      callback.__raw = ''
+        function()
+          vim.keymap.set(
+            "n", 
+            "<leader>co",
+            "<cmd>ClangdSwitchSourceHeader<cr>",
+            { buffer = true, desc = "Switch Source/Header" }
+          )
+        end
+      '';
+      desc = "Switch Source/Header";
+    }
+    {
+      event = [ "FileType" ];
+      pattern = [ "markdown" "text" "gitcommit" "mail" ];
+      callback.__raw = ''
+        function()
+          vim.opt_local.wrap = true;
+          vim.opt_local.linebreak = true;
+        end
+      '';
+      desc = "Enable Wrap for prose and markdown files";
     }
   ];
 }

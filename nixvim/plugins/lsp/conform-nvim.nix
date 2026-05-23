@@ -38,4 +38,17 @@ in
       };
     };
   };
+
+  autoCmd = [
+    {
+      event = "FileType";
+      pattern = [
+        "c"
+        "cpp"
+        "python"
+      ];
+      callback.__raw = ''function() require("conform").format({ bufnr = 0, lsp_format = "fallback" }) end'';
+      desc = "Auto format";
+    }
+  ];
 }

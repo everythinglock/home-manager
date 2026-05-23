@@ -7,6 +7,7 @@
       need_2_buffers = true; 
     };
 
+    lazyLoad.settings.event = "VimLeavePre";
     lazyLoad.settings.keys = [
       {
         mode = "n";

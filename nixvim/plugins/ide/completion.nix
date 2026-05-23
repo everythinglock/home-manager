@@ -12,9 +12,8 @@
     settings = {
       completion = {
         menu.border = "rounded";
-        documentation = {
-          window.border = "rounded";
-        };
+        documentation.window.border = "rounded";
+        ghost_text.enabled = true;
       };
       keymap = {
         preset = "none";

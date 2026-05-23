@@ -25,45 +25,6 @@
       };
     }
     # ═══════════════════════════════════════
-    #  ✏️ Move
-    # ═══════════════════════════════════════
-    {
-      mode = "i";
-      key = "<C-h>";
-      action = "<Left>";
-      options.desc = "Move left";
-    }
-    {
-      mode = "i";
-      key = "<C-l>";
-      action = "<Right>";
-      options.desc = "Move right";
-    }
-    {
-      mode = "i";
-      key = "<C-j>";
-      action = "<Down>";
-      options.desc = "Move down";
-    }
-    {
-      mode = "i";
-      key = "<C-k>";
-      action = "<Up>";
-      options.desc = "Move up";
-    }
-    {
-      mode = "i";
-      key = "<C-e>";
-      action = "<End>";
-      options.desc = "Jump to EOL";
-    }
-    {
-      mode = "i";
-      key = "<C-a>";
-      action = "<Home>";
-      options.desc = "Jump to SOL";
-    }
-    # ═══════════════════════════════════════
     #  📋 Buffer
     # ═══════════════════════════════════════
     {
@@ -257,21 +218,6 @@
       options.desc = "Paste before cursor (system)";
     }
     # ═══════════════════════════════════════
-    #  ✏️ Time Undo
-    # ═══════════════════════════════════════
-    {
-      mode = "n";
-      key = "g-";
-      action = "g-";
-      options.desc = "Undo tree: older";
-    }
-    {
-      mode = "n";
-      key = "g+";
-      action = "g+";
-      options.desc = "Undo tree: newer";
-    }
-    # ═══════════════════════════════════════
     #  ⚙️ Reload
     # ═══════════════════════════════════════
     {
@@ -286,7 +232,7 @@
       action.__raw = ''
         function()
           local current_file = vim.api.nvim_buf_get_name(0)
-          -- 防御性编程：如果是无名 buffer 或者是特殊 buffer（如 Terminal 或 Dashboard），直接返回
+          -- 如果是无名 buffer 或者是特殊 buffer（如 Terminal 或 Dashboard），直接返回
           if current_file == "" or vim.bo.buftype ~= "" then
             vim.notify("Cannot change directory: Not a valid file buffer", vim.log.levels.WARN, { title = "System" })
             return

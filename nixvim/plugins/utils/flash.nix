@@ -8,8 +8,8 @@
           "x"
           "o"
         ];
-        __unkeyed-1 = "ss";
-        __unkeyed-2 = "<cmd>lua require('flash').jump()<cr>";
+        __unkeyed-1 = "s";
+        __unkeyed-2.__raw = ''function() require('flash').jump() end'';
         desc = "Flash";
       }
       {
@@ -19,13 +19,13 @@
           "o"
         ];
         __unkeyed-1 = "S";
-        __unkeyed-2 = "<cmd>lua require('flash').treesitter()<cr>";
+        __unkeyed-2.__raw = ''function() require('flash').treesitter() end'';
         desc = "Flash Treesitter";
       }
       {
         mode = "o";
         __unkeyed-1 = "r";
-        __unkeyed-2 = "<cmd>lua require('flash').remote()<cr>";
+        __unkeyed-2.__raw = ''function() require('flash').remote() end'';
         desc = "Remote Flash";
       }
       {
@@ -34,7 +34,7 @@
           "x"
         ];
         __unkeyed-1 = "R";
-        __unkeyed-2 = "<cmd>lua require('flash').treesitter_search()<cr>";
+        __unkeyed-2.__raw = ''function() require('flash').treesitter_search() end'';
         desc = "Treesitter Search";
       }
     ];

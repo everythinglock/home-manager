@@ -1,7 +1,8 @@
 let
   cpp = "clangd";
   python = "ty";
-  nix = "nil_ls";
+  python_minor = "ruff";
+  nix = "nixd";
   lua = "lua_ls";
 in
 {
@@ -12,16 +13,70 @@ in
       "BufReadPost"
     ];
     inlayHints = true;
+    onAttach = ''
+      -- 效果：在括号里写参数时（如 foo(a, |)），按 Ctrl-k 极速召唤参数悬浮提示
+      if client and client:supports_method("textDocument/signatureHelp") then
+        vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, {
+          buffer = bufnr,
+          desc = "LSP Signature Help (Active parameters)",
+        })
+      end
+    '';
     servers = {
-      ${cpp}.enable = true;
+      ${cpp} = {
+        enable = true;
+        cmd = [
+          "clangd"
+          "--background-index" # 后台建立索引，提速跳转
+          "--clang-tidy" # 开启clang-tidy 诊断
+          "--header-insertion=never" # 禁用自动引入头文件
+          "--completion-style=detailed"
+        ];
+      };
       ${lua}.enable = true;
       ${nix}.enable = true;
       ${python}.enable = true;
+      ${python_minor}.enable = true;
     };
-    keymaps.lspBuf = {
-      "<leader>cr" = "rename";
-      "<leader>ca" = "code_action";
-      "K" = "hover";
-    };
+    lazyLoad.settings.keys = [
+      { __unkeyed-1 = "<leader>ca"; __unkeyed-2.__raw = "vim.lsp.buf.code_action"; desc = "Lsp buf code action"; }
+      { __unkeyed-1 = "<leader>cr"; __unkeyed-2.__raw = "vim.lsp.buf.rename"; desc = "Lsp buf rename"; }
+      {
+        __unkeyed-1 = "K";
+        __unkeyed-2.__raw = ''
+          function()
+            -- 安全检测：如果你已经在悬浮窗内部了，按 K 会自动跳回主代码窗口
+            if vim.api.nvim_win_get_config(0).relative ~= "" then
+              vim.cmd("wincmd p")
+              return
+            end
+            -- 检测当前屏幕上是否已经弹出了任何悬浮窗（如 LSP 文档弹窗）
+            local has_float = false
+            for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+              local config = vim.api.nvim_win_get_config(win)
+              if config.relative ~= "" and config.focusable then
+                has_float = true
+                break
+              end
+            end
+            -- 智能逻辑分流：
+            if has_float then
+              -- 如果屏幕上已经有弹窗了（第 2 次按 K），弹出该行的 LSP 诊断报错
+              vim.diagnostic.open_float()
+            else
+              -- 如果没有任何弹窗（第 1 次按 K），调用 LSP Hover 文档
+              -- 如果 LSP 没启动（比如在普通文本里），则降级调用 Neovim 原生的帮助/Man手册动作
+              local clients = vim.lsp.get_clients({ bufnr = 0 })
+              if #clients == 0 then
+                  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("K", true, true, true), "n", true)
+              else
+                  vim.lsp.buf.hover()
+              end
+            end
+          end
+        '';
+        desc = "Lsp buf rename";
+      }
+    ];
   };
 }

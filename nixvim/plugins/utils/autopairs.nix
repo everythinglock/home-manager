@@ -1,9 +1,6 @@
 {
-  plugins.mini-pairs = {
+  plugins.nvim-autopairs = {
     enable = true;
-    lazyLoad.settings.event = [
-      "BufReadPost"
-      "BufNewFile"
-    ];
+    lazyLoad.settings.event = "InsertEnter";
   };
 }

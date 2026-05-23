@@ -208,7 +208,7 @@
       options.desc = "LSP Workspace Symbols";
     }
     {
-      key = "<leader>sr";
+      key = "<leader>sR";
       mode = "n";
       action.__raw = "function() Snacks.picker.resume() end";
       options.desc = "Resume Last Search";
@@ -303,7 +303,7 @@
       options.desc = "LSP Go to Type Definition";
     }
     {
-      key = "<C-\\>";
+      key = "<C-'>";
       mode = [
         "n"
         "t"

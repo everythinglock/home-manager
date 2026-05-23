@@ -13,6 +13,7 @@ let
 
     language = {
       nodejs = pkgs.nodejs;
+      python = pkgs.python313;
     };
 
     desktop = {

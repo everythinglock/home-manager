@@ -14,7 +14,7 @@
         }
         {
           __unkeyed-1 = "<leader>c";
-          group = "Change";
+          group = "Code/LSP";
           icon = " ";
           mode = [ "v" "n" ];
         }
@@ -25,7 +25,7 @@
         }
         {
           __unkeyed-1 = "<leader>g";
-          group = "Git hunks";
+          group = "Git";
           icon = "󰊢 ";
           mode = [ "v" "n" ];
         }
@@ -36,7 +36,7 @@
         }
         {
           __unkeyed-1 = "<leader>r";
-          group = "Reload";
+          group = "Reload/Session";
           icon = " ";
         }
         {
@@ -53,6 +53,11 @@
           __unkeyed-1 = "<leader>t";
           group = "Toggle";
           icon = " ";
+        }
+        {
+          __unkeyed-1 = "<leader>u";
+          group = "Test";
+          icon = " ";
         }
         {
           __unkeyed-1 = "<leader>x";

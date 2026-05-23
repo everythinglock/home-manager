@@ -4,13 +4,13 @@
     lazyLoad.settings.keys = [
       {
         mode = "n";
-        __unkeyed-1 = "<leader>cs";
+        __unkeyed-1 = "<leader>sr";
         __unkeyed-2.__raw = "function() require('grug-far').open({ transient = true }) end";
         desc = "Search and replace";
       }
       {
         mode = "v";
-        __unkeyed-1 = "<leader>cs";
+        __unkeyed-1 = "<leader>sr";
         __unkeyed-2.__raw = ''
           function()
               require("grug-far").with_visual_selection({
