@@ -22,6 +22,9 @@ in
 
   plugins.conform-nvim = {
     enable = true;
+    lazyLoad.settings.event = [
+      "BufWritePre"
+    ];
     lazyLoad.settings.keys = [
       {
         __unkeyed-1 = "<leader>cf";
@@ -41,14 +44,14 @@ in
 
   autoCmd = [
     {
-      event = "FileType";
+      event = "BufWritePre";
       pattern = [
-        "c"
-        "cpp"
-        "python"
+        "*.c"
+        "*.cpp"
+        "*.py"
       ];
       callback.__raw = ''function() require("conform").format({ bufnr = 0, lsp_format = "fallback" }) end'';
-      desc = "Auto format";
+      desc = "Auto format on save";
     }
   ];
 }

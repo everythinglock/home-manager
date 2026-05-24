@@ -58,7 +58,7 @@
     }
     {
       event = [ "FileType" ];
-      pattern = [ "markdown" "text" "gitcommit" "mail" ];
+      pattern = [ "markdown" "txt" "gitcommit" "mail" ];
       callback.__raw = ''
         function()
           vim.opt_local.wrap = true;

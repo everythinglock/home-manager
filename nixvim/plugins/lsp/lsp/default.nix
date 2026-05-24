@@ -1,11 +1,10 @@
-let
-  cpp = "clangd";
-  python = "ty";
-  python_minor = "ruff";
-  nix = "nixd";
-  lua = "lua_ls";
-in
 {
+  imports = [
+    ./cpp.nix
+    ./javascript.nix
+    ./nix.nix
+    ./python.nix
+  ];
   plugins.lsp = {
     enable = true;
     lazyLoad.settings.event = [
@@ -13,34 +12,10 @@ in
       "BufReadPost"
     ];
     inlayHints = true;
-    onAttach = ''
-      -- 效果：在括号里写参数时（如 foo(a, |)），按 Ctrl-k 极速召唤参数悬浮提示
-      if client and client:supports_method("textDocument/signatureHelp") then
-        vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help, {
-          buffer = bufnr,
-          desc = "LSP Signature Help (Active parameters)",
-        })
-      end
-    '';
-    servers = {
-      ${cpp} = {
-        enable = true;
-        cmd = [
-          "clangd"
-          "--background-index" # 后台建立索引，提速跳转
-          "--clang-tidy" # 开启clang-tidy 诊断
-          "--header-insertion=never" # 禁用自动引入头文件
-          "--completion-style=detailed"
-        ];
-      };
-      ${lua}.enable = true;
-      ${nix}.enable = true;
-      ${python}.enable = true;
-      ${python_minor}.enable = true;
-    };
     lazyLoad.settings.keys = [
-      { __unkeyed-1 = "<leader>ca"; __unkeyed-2.__raw = "vim.lsp.buf.code_action"; desc = "Lsp buf code action"; }
-      { __unkeyed-1 = "<leader>cr"; __unkeyed-2.__raw = "vim.lsp.buf.rename"; desc = "Lsp buf rename"; }
+      { __unkeyed-1 = "<leader>ca"; __unkeyed-2.__raw = "function() vim.lsp.buf.code_action() end"; desc = "Lsp buf code action"; }
+      { __unkeyed-1 = "<leader>cr"; __unkeyed-2.__raw = "function() vim.lsp.buf.rename() end"; desc = "Lsp buf rename"; }
+      { __unkeyed-1 = "<C-k>"; __unkeyed-2.__raw = "function() vim.lsp.buf.hover() end"; desc = "Lsp buf code action"; }
       {
         __unkeyed-1 = "K";
         __unkeyed-2.__raw = ''

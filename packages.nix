@@ -1,19 +1,33 @@
-{ pkgs, upkgs, lib, ... }:
+{
+  pkgs,
+  upkgs,
+  lib,
+  ...
+}:
 let
   packages = {
     ai = {
-      terminal = pkgs.claude-code;
+      aider = upkgs.aider-chat;
+      claude = upkgs.claude-code;
       chatbox = upkgs.chatbox;
+      cherry-studio = upkgs.cherry-studio;
+      pi = upkgs.pi-coding-agent;
     };
 
     # 编辑器与开发
     editor = {
-      vscode = pkgs.vscode;
+      vscode = pkgs.vscode-fhs;
     };
 
     language = {
       nodejs = pkgs.nodejs;
-      python = pkgs.python313;
+      python = pkgs.python313.withPackages (ps: [
+        ps.rich
+        ps.requests
+      ]);
+      c = {
+        gcc = pkgs.gcc;
+      };
     };
 
     desktop = {
@@ -35,11 +49,15 @@ let
 
     office = {
       writer = pkgs.libreoffice;
-      notes = pkgs.obsidian;
+      notes = upkgs.obsidian;
     };
 
     social = {
       qq = pkgs.qq;
+    };
+
+    project = {
+      codeToMarkdown = pkgs.repomix;
     };
   };
 in

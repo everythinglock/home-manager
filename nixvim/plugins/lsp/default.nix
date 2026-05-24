@@ -3,7 +3,7 @@
     ./diagnostics.nix
     ./conform-nvim.nix
     ./nvim-lint.nix
-    ./lsp.nix
+    ./lsp
     ./trouble.nix
   ];
 }

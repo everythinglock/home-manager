@@ -64,6 +64,10 @@
         fi
         rm -f -- "$tmp"
       }
+
+      export OPENAI_API_BASE="http://127.0.0.1:8889/v1"
+      export OPENAI_API_KEY="sk-dummy-key"  
+      alias aider="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider"
     '';
 
     plugins = [

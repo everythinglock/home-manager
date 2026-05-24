@@ -19,6 +19,14 @@
           };
           opts.skip = true; # 直接跳过、不显示
         }
+        {
+          filter = {
+            event = "msg_show";
+            find = "written";
+          };
+          opts.skip = false;
+          view = "mini"; # 底部小字
+        }
       ];
       views = {
         cmdline_popup = {
@@ -32,14 +40,20 @@
           };
           border = {
             style = "rounded";
-            padding = [ 0 1 ];
+            padding = [
+              0
+              1
+            ];
           };
         };
         hover = {
           border = {
             style = "rounded"; # 强制 Hover 也是精致的圆角
           };
-          position = { row = 2; col = 0; };
+          position = {
+            row = 2;
+            col = 0;
+          };
         };
       };
     };
