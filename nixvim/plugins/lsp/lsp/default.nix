@@ -2,6 +2,7 @@
   imports = [
     ./cpp.nix
     ./javascript.nix
+    ./json.nix
     ./nix.nix
     ./python.nix
   ];

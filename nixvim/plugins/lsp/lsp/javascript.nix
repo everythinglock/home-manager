@@ -1,10 +1,10 @@
 let
-  js = "vtsls";
+  javascript = "vtsls";
 in
 {
   plugins.lsp = {
     servers = {
-      ${js}.enable = true;
+      ${javascript}.enable = true;
     };
   };
 }
