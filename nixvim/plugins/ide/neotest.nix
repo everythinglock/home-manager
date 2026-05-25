@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  pythonWithTest = pkgs.python313.withPackages (ps: [
+  pythonWithTest = pkgs.python312.withPackages (ps: [
     ps.pytest
   ]);
 in

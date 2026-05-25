@@ -65,9 +65,13 @@
         rm -f -- "$tmp"
       }
 
+      # aider
       export OPENAI_API_BASE="http://127.0.0.1:8889/v1"
-      export OPENAI_API_KEY="sk-dummy-key"  
-      alias aider="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider"
+      export OPENAI_API_KEY="sk-dummy-key"
+      alias ai="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider"
+      alias aib="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider --architect --model openai/gemini-3.1-pro-preview --editor-model openai/gemini-3.5-flash"
+      alias aih="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider --restore-chat-history"
+      alias aibh="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider --architect --model gemini/gemini-3.1-pro-preview --editor-model openai/gemini-3.5-flash --restore-chat-history"
     '';
 
     plugins = [

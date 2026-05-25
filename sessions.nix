@@ -9,6 +9,8 @@
     sessionPath = [
       "$HOME/Applications/scripts"
       "$HOME/.nix-profile/bin"
+      "$HOME/.local/bin"
+      "$HOME/.npm-global/bin"
     ];
   };
 }

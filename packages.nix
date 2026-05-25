@@ -8,10 +8,7 @@ let
   packages = {
     ai = {
       aider = upkgs.aider-chat;
-      claude = upkgs.claude-code;
       chatbox = upkgs.chatbox;
-      cherry-studio = upkgs.cherry-studio;
-      pi = upkgs.pi-coding-agent;
     };
 
     # 编辑器与开发
@@ -21,7 +18,7 @@ let
 
     language = {
       nodejs = pkgs.nodejs;
-      python = pkgs.python313.withPackages (ps: [
+      python = pkgs.python312.withPackages (ps: [
         ps.rich
         ps.requests
       ]);
@@ -63,4 +60,8 @@ let
 in
 {
   home.packages = lib.collect lib.isDerivation packages;
+  home.activation.createNpmGlobarDir = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    mkdir -p $HOME/.npm-global
+    ${pkgs.nodejs}/bin/npm config set prefix '~/.npm-global'
+  '';
 }
