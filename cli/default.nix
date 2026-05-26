@@ -32,6 +32,7 @@ in
   home.packages = lib.collect lib.isDerivation terminalTools;
 
   imports = [
+    ./bash.nix
     ./direnv.nix
     ./fzf.nix
     ./starship.nix
