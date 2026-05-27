@@ -48,9 +48,9 @@
       # 当你输入路径或命令并按下 Tab 时，自动弹出 FZF 悬浮窗进行模糊搜索
       _fzf_tab_completion() {
         # 获取当前光标前的输入
-        local token="${READLINE_LINE:0:$READLINE_POINT}"
+        local token="''${READLINE_LINE:0:$READLINE_POINT}"
         # 提取最后一个单词
-        local last_word="${token##* }"
+        local last_word="''${token##* }"
         
         # 如果是空输入，执行默认的 Tab 行为
         if [[ -z "$last_word" ]]; then
@@ -67,11 +67,11 @@
 
         if [[ -n "$selected" ]]; then
           # 去除路径前缀 ./
-          selected="${selected#./}"
+          selected="''${selected#./}"
           # 替换最后一个单词为选择的内容
-          READLINE_LINE="${READLINE_LINE:0:$((READLINE_POINT - ${#last_word}))}${selected}${READLINE_LINE:$READLINE_POINT}"
+          READLINE_LINE="''${READLINE_LINE:0:$((READLINE_POINT - ''${#last_word}))}''${selected}''${READLINE_LINE:$READLINE_POINT}"
           # 移动光标到插入内容之后
-          READLINE_POINT=$((READLINE_POINT - ${#last_word} + ${#selected}))
+          READLINE_POINT=$((READLINE_POINT - ''${#last_word} + ''${#selected}))
         fi
       }
       # 将 Tab 键绑定到我们的 FZF 智能补全函数

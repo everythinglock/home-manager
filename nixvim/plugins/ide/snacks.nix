@@ -3,7 +3,10 @@
     enable = true;
 
     settings = {
-      bigfile.enabled = true;
+      bigfile = {
+        enabled = true;
+        size = 1024 * 1024; # 1MB
+      };
       dashboard = {
         enabled = true;
         sections = [

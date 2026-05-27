@@ -1,23 +1,9 @@
 {
   plugins.render-markdown = {
     enable = true;
+    lazyLoad.settings.ft = [ "markdown" ];
     settings = {
-      heading = {
-        sign = false;
-        icons = [
-          "# "
-          "## "
-          "### "
-          "#### "
-          "##### "
-          "###### "
-        ];
-      };
-      code = {
-        sign = false;
-        width = "block";
-        right_pad = 1;
-      };
+      max_file_size = 0.5; # MB
     };
   };
 }
