@@ -7,7 +7,6 @@
 let
   packages = {
     ai = {
-      aider = upkgs.aider-chat;
       chatbox = upkgs.chatbox;
     };
 
@@ -18,12 +17,18 @@ let
 
     language = {
       nodejs = pkgs.nodejs;
-      python = pkgs.python312.withPackages (ps: [
-        ps.rich
-        ps.requests
-      ]);
+      python = {
+        lib = pkgs.python312.withPackages (ps: [
+          ps.rich
+          ps.requests
+        ]);
+        uv = pkgs.uv;
+      };
       c = {
         gcc = pkgs.gcc;
+      };
+      go = {
+        golang = pkgs.go;
       };
     };
 

@@ -16,7 +16,6 @@
         "<C-c>" = false;
         "<C-l>" = false;
         "<C-r>" = "actions.refresh";
-        "<leader>q" = "actions.close";
         "q" = "actions.close";
         "y." = "actions.copy_entry_path";
         "-" = "actions.parent";

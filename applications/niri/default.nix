@@ -1,10 +1,15 @@
 {
   lib,
-  config,
   username,
   ...
 }:
 {
+  home.packages = with pkgs; [
+    xwayland-satellite # xwayland
+  ];
+  home.sessionVariables = {
+    DISPLAY = ":0";
+  };
   xdg.configFile = {
     "niri/config.kdl".text = ''
       include "modules/keybind.kdl"

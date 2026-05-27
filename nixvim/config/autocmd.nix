@@ -67,5 +67,30 @@
       '';
       desc = "Enable Wrap for prose and markdown files";
     }
+    {
+      event = [ "FileType" ];
+      pattern = [ "oil" ];
+      callback.__raw = ''
+        function(ev)
+          -- 1. 立即禁用 inlay hints
+          pcall(vim.lsp.inlay_hint.enable, false, { bufnr = ev.buf })
+          
+          -- 2. 立即清除可能触发 documentHighlight 的 LSP 自动命令，防止 clangd 报错
+          pcall(vim.api.nvim_clear_autocmds, { event = "CursorHold", buffer = ev.buf })
+          pcall(vim.api.nvim_clear_autocmds, { event = "CursorHoldI", buffer = ev.buf })
+          pcall(vim.api.nvim_clear_autocmds, { event = "CursorMoved", buffer = ev.buf })
+          
+          -- 3. 延迟异步分离 LSP 客户端，完美避开 Neovim 内部 _changetracking 的 Lua 崩溃 Bug
+          vim.schedule(function()
+            if vim.api.nvim_buf_is_valid(ev.buf) then
+              for _, client in ipairs(vim.lsp.get_clients({ bufnr = ev.buf })) do
+                pcall(vim.lsp.buf_detach_client, ev.buf, client.id)
+              end
+            end
+          end)
+        end
+      '';
+      desc = "安全地禁用 oil 缓冲区的 LSP 功能，防止 clangd 报错及 Lua 崩溃";
+    }
   ];
 }

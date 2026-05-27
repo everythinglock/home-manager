@@ -3,7 +3,6 @@
     sessionVariables = {
       EDITOR = "nvim";
       BROWSER = "firefox";
-      DISPLAY = ":0";
       TerminalEmulator = "foot";
     };
     sessionPath = [

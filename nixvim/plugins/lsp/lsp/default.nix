@@ -9,8 +9,8 @@
   plugins.lsp = {
     enable = true;
     lazyLoad.settings.event = [
-      "BufNewFile"
       "BufReadPost"
+      "BufNewFile"
     ];
     inlayHints = true;
     lazyLoad.settings.keys = [
