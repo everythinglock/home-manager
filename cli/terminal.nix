@@ -5,7 +5,7 @@
       main = {
         font = "JetBrains Mono:size=13, JetBrainsMono Nerd Font:size=13";
       };
-      colors = {
+      colors-dark = {
         # 基本颜色
         background = "1e1e2e";
         foreground = "cdd6f4";

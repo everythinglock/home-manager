@@ -72,6 +72,11 @@
       alias aib="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider --architect --model openai/gemini-3.1-pro-preview --editor-model openai/gemini-3.5-flash"
       alias aih="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider --restore-chat-history"
       alias aibh="env LANG=zh_CN.UTF-8 LC_ALL=zh_CN.UTF-8 aider --architect --model openai/gemini-3.1-pro-preview --editor-model openai/gemini-3.5-flash --restore-chat-history"
+
+      # key
+      if [ -f ~/.zsh_secrets ]; then
+        source ~/.zsh_secrets
+      fi
     '';
 
     plugins = [
