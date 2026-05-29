@@ -16,7 +16,9 @@ let
     };
 
     language = {
-      nodejs = pkgs.nodejs;
+      node = {
+        main = pkgs.nodejs;
+      };
       python = {
         lib = pkgs.python312.withPackages (ps: [
           ps.rich

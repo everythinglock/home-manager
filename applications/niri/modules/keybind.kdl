@@ -42,6 +42,9 @@ binds {
     Mod+Shift+U         { move-window-down; }
     Mod+Shift+I         { move-window-up; }
 
+    Mod+Ctrl+U         { move-workspace-down; }
+    Mod+Ctrl+I         { move-workspace-up; }
+
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
     Mod+Ctrl+Home { move-column-to-first; }

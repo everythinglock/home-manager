@@ -20,11 +20,11 @@ let
 
     fileManager = {
       tui = pkgs.yazi;
+      unzip = pkgs.unzip;
     };
 
     utilities = {
       jsonParser = pkgs.jq;
-      quickManual = pkgs.tldr;
     };
   };
 in

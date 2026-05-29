@@ -1,10 +1,10 @@
 { pkgs, ... }:
 let
-  nixvimPython = pkgs.python3.withPackages (ps: [
-    ps.rich
-    ps.requests
-  ]);
-  python = "basedpyright";
+  # nixvimPython = pkgs.python3.withPackages (ps: [
+  #   ps.rich
+  #   ps.requests
+  # ]);
+  python = "ty";
   python_minor = "ruff";
 in
 {
@@ -14,7 +14,7 @@ in
       ${python_minor}.enable = true;
     };
   };
-  extraPackages = [
-    nixvimPython
-  ];
+  # extraPackages = [
+  #   nixvimPython
+  # ];
 }
